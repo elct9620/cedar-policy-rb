@@ -3,6 +3,7 @@ use magnus::{value::Lazy, Error, RModule, Ruby};
 mod entity;
 mod error;
 mod policy_set;
+mod request;
 
 static CEDAR_POLICY: Lazy<RModule> = Lazy::new(|ruby| ruby.define_module("CedarPolicy").unwrap());
 
@@ -12,6 +13,7 @@ fn init(ruby: &Ruby) -> Result<(), Error> {
 
     error::init(ruby)?;
     entity::init(ruby, &module)?;
+    request::init(ruby, &module)?;
     policy_set::init(ruby, &module)?;
 
     Ok(())

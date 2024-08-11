@@ -1,12 +1,16 @@
-use magnus::{function, prelude::*, Error, Ruby};
+use magnus::{value::Lazy, Error, RModule, Ruby};
 
-fn hello(subject: String) -> String {
-    format!("Hello from Rust, {subject}!")
-}
+mod error;
+mod policy_set;
+
+static CEDAR_POLICY: Lazy<RModule> = Lazy::new(|ruby| ruby.define_module("CedarPolicy").unwrap());
 
 #[magnus::init]
 fn init(ruby: &Ruby) -> Result<(), Error> {
-    let module = ruby.define_module("CedarPolicy")?;
-    module.define_singleton_method("hello", function!(hello, 1))?;
+    let module = ruby.get_inner(&CEDAR_POLICY);
+
+    error::init(ruby)?;
+    policy_set::init(ruby, &module)?;
+
     Ok(())
 }

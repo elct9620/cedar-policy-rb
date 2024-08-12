@@ -25,11 +25,39 @@ RSpec.describe CedarPolicy::Request do
     subject { authorizer.authorized?(request, policy_set, entities) }
 
     it { is_expected.to be_truthy }
+
+    context "when the policy denies the request" do
+      let(:policy) do
+        <<~POLICY
+          permit(
+            principal == AdminUser::"1",
+            action == Action::"view",
+            resource
+          );
+        POLICY
+      end
+
+      it { is_expected.to be_falsey }
+    end
   end
 
   describe "#authorize" do
     subject { authorizer.authorize(request, policy_set, entities) }
 
     it { is_expected.to have_attributes(decision: CedarPolicy::Decision.allow) }
+
+    context "when the policy denies the request" do
+      let(:policy) do
+        <<~POLICY
+          permit(
+            principal == AdminUser::"1",
+            action == Action::"view",
+            resource
+          );
+        POLICY
+      end
+
+      it { is_expected.to have_attributes(decision: CedarPolicy::Decision.deny) }
+    end
   end
 end

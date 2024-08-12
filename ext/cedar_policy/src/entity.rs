@@ -16,6 +16,12 @@ impl REntity {
     }
 }
 
+impl From<&Entity> for REntity {
+    fn from(entity: &Entity) -> Self {
+        Self(entity.clone())
+    }
+}
+
 pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
     let class = module.define_class("Entity", ruby.class_object())?;
     class.define_singleton_method("new", function!(REntity::new, 1))?;

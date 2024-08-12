@@ -6,9 +6,9 @@ use magnus::{function, method, Error, Module, Object, RModule, Ruby};
 use crate::error::PARSE_ERROR;
 
 #[magnus::wrap(class = "CedarPolicy::PolicySet")]
-struct PolicySetWrapper(PolicySet);
+struct RPolicySet(PolicySet);
 
-impl PolicySetWrapper {
+impl RPolicySet {
     fn new() -> Self {
         Self(PolicySet::new())
     }
@@ -26,9 +26,9 @@ impl PolicySetWrapper {
 
 pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
     let class = module.define_class("PolicySet", ruby.class_object())?;
-    class.define_singleton_method("new", function!(PolicySetWrapper::new, 0))?;
-    class.define_singleton_method("from_str", function!(PolicySetWrapper::from_str, 1))?;
-    class.define_method("empty?", method!(PolicySetWrapper::is_empty, 0))?;
+    class.define_singleton_method("new", function!(RPolicySet::new, 0))?;
+    class.define_singleton_method("from_str", function!(RPolicySet::from_str, 1))?;
+    class.define_method("empty?", method!(RPolicySet::is_empty, 0))?;
 
     Ok(())
 }

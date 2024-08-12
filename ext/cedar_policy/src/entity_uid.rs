@@ -7,10 +7,6 @@ use magnus::{function, method, Error, Module, Object, RModule, Ruby};
 pub struct EntityUidWrapper(EntityUid);
 
 impl EntityUidWrapper {
-    pub fn wrap(entity_uid: EntityUid) -> Self {
-        Self(entity_uid)
-    }
-
     fn new(ruby: &Ruby, entity_type: String, id: String) -> Result<Self, Error> {
         let id = EntityId::from_str(&id)
             .map_err(|e| Error::new(ruby.exception_arg_error(), e.to_string()))?;
@@ -27,9 +23,23 @@ impl EntityUidWrapper {
     fn to_s(&self) -> String {
         self.0.to_string()
     }
+}
 
-    pub fn to_entity_uid(&self) -> EntityUid {
-        self.0.clone()
+impl From<EntityUid> for EntityUidWrapper {
+    fn from(uid: EntityUid) -> Self {
+        Self(uid)
+    }
+}
+
+impl From<&EntityUid> for EntityUidWrapper {
+    fn from(uid: &EntityUid) -> Self {
+        Self(uid.clone())
+    }
+}
+
+impl From<&EntityUidWrapper> for EntityUid {
+    fn from(wrapper: &EntityUidWrapper) -> Self {
+        wrapper.0.clone()
     }
 }
 

@@ -1,7 +1,8 @@
 use cedar_policy::{Context, Request};
 use magnus::{function, method, Error, Module, Object, RModule, Ruby};
+use std::convert::Into;
 
-use crate::entity::EntityUidWrapper;
+use crate::entity_uid::EntityUidWrapper;
 
 #[magnus::wrap(class = "CedarPolicy::Request")]
 pub struct RequestWrapper(Request);
@@ -14,9 +15,9 @@ impl RequestWrapper {
     ) -> Self {
         Self(
             Request::new(
-                principal.map(|p| p.to_entity_uid()),
-                action.map(|a| a.to_entity_uid()),
-                resource.map(|r| r.to_entity_uid()),
+                principal.map(&Into::into),
+                action.map(&Into::into),
+                resource.map(&Into::into),
                 Context::empty(),
                 None,
             )
@@ -25,17 +26,15 @@ impl RequestWrapper {
     }
 
     fn principal(&self) -> Option<EntityUidWrapper> {
-        self.0
-            .principal()
-            .map(|p| EntityUidWrapper::wrap(p.clone()))
+        self.0.principal().map(&Into::into)
     }
 
     fn action(&self) -> Option<EntityUidWrapper> {
-        self.0.action().map(|a| EntityUidWrapper::wrap(a.clone()))
+        self.0.action().map(&Into::into)
     }
 
     fn resource(&self) -> Option<EntityUidWrapper> {
-        self.0.resource().map(|r| EntityUidWrapper::wrap(r.clone()))
+        self.0.resource().map(&Into::into)
     }
 }
 

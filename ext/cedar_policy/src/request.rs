@@ -38,6 +38,12 @@ impl RRequest {
     }
 }
 
+impl<'a> From<&'a RRequest> for &'a Request {
+    fn from(request: &'a RRequest) -> Self {
+        &request.0
+    }
+}
+
 pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
     let class = module.define_class("Request", ruby.class_object())?;
     class.define_singleton_method("new", function!(RRequest::new, 3))?;

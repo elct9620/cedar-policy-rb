@@ -6,7 +6,7 @@ use magnus::{function, method, Error, Module, Object, RModule, Ruby};
 use crate::error::PARSE_ERROR;
 
 #[magnus::wrap(class = "CedarPolicy::PolicySet")]
-struct RPolicySet(PolicySet);
+pub struct RPolicySet(PolicySet);
 
 impl RPolicySet {
     fn new() -> Self {
@@ -21,6 +21,12 @@ impl RPolicySet {
 
     fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+}
+
+impl From<&RPolicySet> for PolicySet {
+    fn from(policy: &RPolicySet) -> Self {
+        policy.0.clone()
     }
 }
 

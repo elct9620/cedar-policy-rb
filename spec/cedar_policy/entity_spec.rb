@@ -10,4 +10,18 @@ RSpec.describe CedarPolicy::EntityUid do
 
     it { is_expected.to eq(uid) }
   end
+
+  describe "with attributes" do
+    let(:attributes) { { "name" => '"John Doe"', "age" => "18" } }
+
+    subject(:entity) { CedarPolicy::Entity.new(uid, attributes) }
+
+    it { is_expected.to have_attributes(uid: uid) }
+
+    describe "with invalid expression" do
+      let(:attributes) { { "name" => '"John Doe' } }
+
+      it { expect { entity }.to raise_error(CedarPolicy::ParseError).with_message(/invalid token/) }
+    end
+  end
 end

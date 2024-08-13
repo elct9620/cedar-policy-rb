@@ -5,8 +5,8 @@ RSpec.describe CedarPolicy::PolicySet do
 
   it { is_expected.to be_empty }
 
-  describe "#from_str" do
-    subject { CedarPolicy::PolicySet.from_str(policy_str) }
+  describe "with policy string" do
+    subject { CedarPolicy::PolicySet.new(policy_str) }
 
     context "when the policy string is empty" do
       let(:policy_str) { "" }

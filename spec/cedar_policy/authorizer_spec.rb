@@ -8,7 +8,7 @@ RSpec.describe CedarPolicy::Request do
   let(:request) { CedarPolicy::Request.new(principal, action, resource) }
   let(:entities) { CedarPolicy::Entities.new }
 
-  let(:policy_set) { CedarPolicy::PolicySet.from_str(policy) }
+  let(:policy_set) { CedarPolicy::PolicySet.new(policy) }
   let(:policy) do
     <<~POLICY
       permit(

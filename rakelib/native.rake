@@ -57,7 +57,7 @@ namespace :gem do
 
   desc "Build native gems for darwin"
   multitask "darwin" => CROSS_RUBIES.select(&:darwin?).map(&:platform).uniq
-end
 
-desc "Build native gems for all platforms"
-task gem: "gem:all"
+  desc "Build native gems for all platforms"
+  task default: %i[all]
+end

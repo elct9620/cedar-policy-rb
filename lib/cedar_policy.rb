@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 require_relative "cedar_policy/version"
 require_relative "cedar_policy/cedar_policy"
 

@@ -1,6 +1,6 @@
-use cedar_policy::{Context, Request};
+use cedar_policy::{Context, EntityUid, Request};
 use magnus::{function, method, Error, Module, Object, RModule, Ruby};
-use std::convert::Into;
+use std::{convert::Into, str::FromStr};
 
 use crate::entity_uid::REntityUid;
 
@@ -8,16 +8,12 @@ use crate::entity_uid::REntityUid;
 pub struct RRequest(Request);
 
 impl RRequest {
-    fn new(
-        principal: Option<&REntityUid>,
-        action: Option<&REntityUid>,
-        resource: Option<&REntityUid>,
-    ) -> Self {
+    fn new(principal: Option<String>, action: Option<String>, resource: Option<String>) -> Self {
         Self(
             Request::new(
-                principal.map(&Into::into),
-                action.map(&Into::into),
-                resource.map(&Into::into),
+                principal.as_ref().map(|s| EntityUid::from_str(s).unwrap()),
+                action.as_ref().map(|s| EntityUid::from_str(s).unwrap()),
+                resource.as_ref().map(|s| EntityUid::from_str(s).unwrap()),
                 Context::empty(),
                 None,
             )

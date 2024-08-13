@@ -19,10 +19,6 @@ impl REntityUid {
     fn eq(&self, other: &REntityUid) -> bool {
         self.0.eq(&other.0)
     }
-
-    fn to_s(&self) -> String {
-        self.0.to_string()
-    }
 }
 
 impl From<EntityUid> for REntityUid {
@@ -43,12 +39,19 @@ impl From<&REntityUid> for EntityUid {
     }
 }
 
+impl ToString for REntityUid {
+    fn to_string(&self) -> String {
+        self.0.to_string()
+    }
+}
+
 pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
     let class = module.define_class("EntityUid", ruby.class_object())?;
     class.define_singleton_method("new", function!(REntityUid::new, 2))?;
     class.define_method("==", method!(REntityUid::eq, 1))?;
-    class.define_method("to_s", method!(REntityUid::to_s, 0))?;
-    class.define_method("inspect", method!(REntityUid::to_s, 0))?;
+    class.define_method("to_s", method!(REntityUid::to_string, 0))?;
+    class.define_method("to_str", method!(REntityUid::to_string, 0))?;
+    class.define_method("inspect", method!(REntityUid::to_string, 0))?;
 
     Ok(())
 }

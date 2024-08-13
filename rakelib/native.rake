@@ -47,14 +47,17 @@ namespace :gem do
   end
 
   desc "Build native gems for all platforms"
-  multitask "all" => CROSS_RUBIES.map(&:platform)
+  multitask "all" => CROSS_RUBIES.map(&:platform).uniq
 
   desc "Build native gems for windows"
-  multitask "windows" => CROSS_RUBIES.select(&:windows?).map(&:platform)
+  multitask "windows" => CROSS_RUBIES.select(&:windows?).map(&:platform).uniq
 
   desc "Build native gems for linux"
-  multitask "linux" => CROSS_RUBIES.select(&:linux?).map(&:platform)
+  multitask "linux" => CROSS_RUBIES.select(&:linux?).map(&:platform).uniq
 
   desc "Build native gems for darwin"
-  multitask "darwin" => CROSS_RUBIES.select(&:darwin?).map(&:platform)
+  multitask "darwin" => CROSS_RUBIES.select(&:darwin?).map(&:platform).uniq
 end
+
+desc "Build native gems for all platforms"
+task gem: "gem:all"

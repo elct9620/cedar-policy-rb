@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe CedarPolicy::Entities do
-  subject(:entities) { CedarPolicy::Entities.from_json(json) }
+  subject(:entities) { CedarPolicy::Entities.new(json) }
 
   let(:json) do
     <<~JSON
@@ -15,14 +15,10 @@ RSpec.describe CedarPolicy::Entities do
     JSON
   end
 
-  describe ".from_json" do
-    it { is_expected.to be_a(CedarPolicy::Entities) }
+  describe "with invalid JSON" do
+    let(:json) { "invalid" }
 
-    describe "with invalid JSON" do
-      let(:json) { "invalid" }
-
-      it { expect { entities }.to raise_error(CedarPolicy::EntitiesError) }
-    end
+    it { expect { entities }.to raise_error(CedarPolicy::EntitiesError) }
   end
 
   describe "#get" do
@@ -32,6 +28,12 @@ RSpec.describe CedarPolicy::Entities do
 
     describe "non-existent entity" do
       subject { entities.get(CedarPolicy::EntityUid.new("User", "2")) }
+
+      it { is_expected.to be_nil }
+    end
+
+    describe "with empty entities" do
+      let(:entities) { CedarPolicy::Entities.new }
 
       it { is_expected.to be_nil }
     end

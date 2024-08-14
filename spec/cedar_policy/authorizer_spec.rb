@@ -74,6 +74,32 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to be_truthy }
   end
 
+  context "with role parents" do
+    let(:policy) do
+      <<~POLICY
+        permit(
+          principal == User::"1",
+          action == Action::"view",
+          resource
+        ) when { principal in Role::"admin" };
+      POLICY
+    end
+    let(:entities) do
+      CedarPolicy::Entities.new(
+        [
+          CedarPolicy::Entity.new(
+            CedarPolicy::EntityUid.new("User", "1"),
+            {},
+            [CedarPolicy::EntityUid.new("Role", "admin")]
+          ),
+          CedarPolicy::Entity.new(CedarPolicy::EntityUid.new("Role", "admin"))
+        ]
+      )
+    end
+
+    it { is_expected.to be_truthy }
+  end
+
   context "with policy defined" do
     let(:policy) do
       <<~POLICY

@@ -15,6 +15,7 @@ fn init(ruby: &Ruby) -> Result<(), Error> {
     let module = ruby.get_inner(&CEDAR_POLICY);
 
     error::init(ruby)?;
+    entity_uid::init(ruby)?;
     authorizer::init(ruby, &module)?;
     request::init(ruby, &module)?;
     response::init(ruby, &module)?;

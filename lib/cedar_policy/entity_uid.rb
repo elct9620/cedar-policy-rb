@@ -10,6 +10,14 @@ module CedarPolicy
       @id = id.to_s
     end
 
+    def ==(other)
+      hash == other.hash
+    end
+
+    def hash
+      [self.class, @type_name, @id].hash
+    end
+
     def to_str
       "#{@type_name}::#{@id.inspect}"
     end

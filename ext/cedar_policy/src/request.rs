@@ -1,8 +1,8 @@
 use cedar_policy::{Context, Request};
-use magnus::{function, method, Error, Module, Object, RModule, Ruby};
+use magnus::{function, method, Error, Module, Object, RModule, Ruby, Value};
 use std::convert::Into;
 
-use crate::entity_uid::EntityUidWrapper;
+use crate::entity_uid::{to_euid_value, EntityUidWrapper};
 
 #[magnus::wrap(class = "CedarPolicy::Request")]
 pub struct RRequest(Request);
@@ -26,16 +26,16 @@ impl RRequest {
         ))
     }
 
-    fn principal(&self) -> Option<String> {
-        self.0.principal().map(ToString::to_string)
+    fn principal(&self) -> Option<Value> {
+        self.0.principal().map(&to_euid_value)
     }
 
-    fn action(&self) -> Option<String> {
-        self.0.action().map(ToString::to_string)
+    fn action(&self) -> Option<Value> {
+        self.0.action().map(&to_euid_value)
     }
 
-    fn resource(&self) -> Option<String> {
-        self.0.resource().map(ToString::to_string)
+    fn resource(&self) -> Option<Value> {
+        self.0.resource().map(&to_euid_value)
     }
 }
 

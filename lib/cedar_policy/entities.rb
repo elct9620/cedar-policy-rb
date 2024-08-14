@@ -8,7 +8,7 @@ module CedarPolicy
     end
 
     def to_ary
-      @entities.to_a
+      @entities.map { |entity| CedarPolicy.deep_serialize(entity) }
     end
   end
 end

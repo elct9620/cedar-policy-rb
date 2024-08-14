@@ -26,8 +26,27 @@ RSpec.describe CedarPolicy::Request do
 
     it { is_expected.to be_truthy }
 
-    context "with entities object" do
+    context "with empty entities object" do
       let(:entities) { CedarPolicy::Entities.new }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "with entities object" do
+      let(:policy) do
+        <<~POLICY
+          permit(
+            principal == User::"1",
+            action == Action::"view",
+            resource == Image::"1"
+          );
+        POLICY
+      end
+      let(:entities) do
+        CedarPolicy::Entities.new([
+                                    CedarPolicy::Entity.new(CedarPolicy::EntityUid.new("Image", "1"))
+                                  ])
+      end
 
       it { is_expected.to be_truthy }
     end

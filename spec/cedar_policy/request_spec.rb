@@ -10,7 +10,7 @@ RSpec.describe CedarPolicy::Request do
   describe "#principal" do
     subject { request.principal }
 
-    it { is_expected.to eq(principal) }
+    it { is_expected.to eq('User::"1"') }
 
     describe "with empty principal" do
       let(:principal) { nil }
@@ -22,7 +22,7 @@ RSpec.describe CedarPolicy::Request do
   describe "#action" do
     subject { request.action }
 
-    it { is_expected.to eq(action) }
+    it { is_expected.to eq('Action::"view"') }
 
     describe "with empty action" do
       let(:action) { nil }
@@ -34,7 +34,7 @@ RSpec.describe CedarPolicy::Request do
   describe "#resource" do
     subject { request.resource }
 
-    it { is_expected.to eq(resource) }
+    it { is_expected.to eq('Image::"1"') }
 
     describe "with empty resource" do
       let(:resource) { nil }

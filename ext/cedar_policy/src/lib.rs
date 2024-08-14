@@ -2,7 +2,6 @@ use magnus::{value::Lazy, Error, RModule, Ruby};
 
 mod authorizer;
 mod decision;
-mod entity_uid;
 mod error;
 mod policy_set;
 mod request;
@@ -16,7 +15,6 @@ fn init(ruby: &Ruby) -> Result<(), Error> {
 
     error::init(ruby)?;
     authorizer::init(ruby, &module)?;
-    entity_uid::init(ruby, &module)?;
     request::init(ruby, &module)?;
     response::init(ruby, &module)?;
     policy_set::init(ruby, &module)?;

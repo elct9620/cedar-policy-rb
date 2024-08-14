@@ -19,51 +19,73 @@ RSpec.describe CedarPolicy::Request do
     POLICY
   end
 
-  subject(:authorizer) { CedarPolicy::Authorizer.new }
+  let(:authorizer) { CedarPolicy::Authorizer.new }
 
-  describe "#authorized?" do
-    subject { authorizer.authorized?(request, policy_set, entities) }
+  subject { authorizer.authorized?(request, policy_set, entities) }
+
+  it { is_expected.to be_truthy }
+
+  context "with empty entities" do
+    let(:entities) { CedarPolicy::Entities.new }
 
     it { is_expected.to be_truthy }
+  end
 
-    context "with empty entities object" do
-      let(:entities) { CedarPolicy::Entities.new }
-
-      it { is_expected.to be_truthy }
+  context "with uid only entity" do
+    let(:policy) do
+      <<~POLICY
+        permit(
+          principal == User::"1",
+          action == Action::"view",
+          resource == Image::"1"
+        );
+      POLICY
+    end
+    let(:entities) do
+      CedarPolicy::Entities.new([
+                                  CedarPolicy::Entity.new(CedarPolicy::EntityUid.new("Image", "1"))
+                                ])
     end
 
-    context "with entities object" do
-      let(:policy) do
-        <<~POLICY
-          permit(
-            principal == User::"1",
-            action == Action::"view",
-            resource == Image::"1"
-          );
-        POLICY
-      end
-      let(:entities) do
-        CedarPolicy::Entities.new([
-                                    CedarPolicy::Entity.new(CedarPolicy::EntityUid.new("Image", "1"))
-                                  ])
-      end
+    it { is_expected.to be_truthy }
+  end
 
-      it { is_expected.to be_truthy }
+  context "with role attribute" do
+    let(:policy) do
+      <<~POLICY
+        permit(
+          principal == User::"1",
+          action == Action::"view",
+          resource
+        ) when { principal.role == "admin" };
+      POLICY
+    end
+    let(:entities) do
+      CedarPolicy::Entities.new(
+        [
+          CedarPolicy::Entity.new(
+            CedarPolicy::EntityUid.new("User", "1"),
+            { role: "admin" }
+          )
+        ]
+      )
     end
 
-    context "when the policy denies the request" do
-      let(:policy) do
-        <<~POLICY
-          permit(
-            principal == AdminUser::"1",
-            action == Action::"view",
-            resource
-          );
-        POLICY
-      end
+    it { is_expected.to be_truthy }
+  end
 
-      it { is_expected.to be_falsey }
+  context "with policy defined" do
+    let(:policy) do
+      <<~POLICY
+        permit(
+          principal == AdminUser::"1",
+          action == Action::"view",
+          resource
+        );
+      POLICY
     end
+
+    it { is_expected.to be_falsey }
   end
 
   describe "#authorize" do

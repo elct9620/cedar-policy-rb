@@ -31,8 +31,9 @@ policy_set = CedarPolicy::PolicySet.new(policy)
 principal = CedarPolicy::EntityUid.new("User", "1")
 action = CedarPolicy::EntityUid.new("Action", "view")
 resource = CedarPolicy::EntityUid.new("Image", "1")
+ctx = CedarPolicy::Context.new
 
-request = CedarPolicy::Request.new(principal, action, resource)
+request = CedarPolicy::Request.new(principal, action, resource, ctx)
 
 entities = CedarPolicy::Entities.new([
     CedarPolicy::Entity.new(

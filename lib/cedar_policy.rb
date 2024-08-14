@@ -8,6 +8,7 @@ require_relative "cedar_policy/cedar_policy"
 require_relative "cedar_policy/entity_uid"
 require_relative "cedar_policy/entity"
 require_relative "cedar_policy/entities"
+require_relative "cedar_policy/context"
 
 # :nodoc:
 module CedarPolicy

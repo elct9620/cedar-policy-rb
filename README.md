@@ -51,6 +51,7 @@ response.decision # => CedarPolicy::Decision::ALLOW
 
 ## Roadmap
 
+* [ ] Add DSL to improve developer experience
 * [ ] Diagnostics return with response
 * [ ] Validator support
 * [ ] Schema support

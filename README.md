@@ -48,6 +48,12 @@ response = authorizer.authorize(request, policy_set, entities)
 response.decision # => CedarPolicy::Decision::ALLOW
 ```
 
+## Roadmap
+
+* [ ] Diagnostics return with response
+* [ ] Validator support
+* [ ] Schema support
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

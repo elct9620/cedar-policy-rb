@@ -26,34 +26,27 @@ policy = <<~POLICY
             resource
           );
         POLICY
-policy_set = CedarPolicy::PolicySet.from_str(policy)
+policy_set = CedarPolicy::PolicySet.new(policy)
 
-principal = CedarPolicy::EntityUid.new("AdminUser", "1")
+principal = CedarPolicy::EntityUid.new("User", "1")
 action = CedarPolicy::EntityUid.new("Action", "view")
 resource = CedarPolicy::EntityUid.new("Image", "1")
 
 request = CedarPolicy::Request.new(principal, action, resource)
 
-entities_json = <<~JSON
-      [
-       {
-         "uid": { "type": "AdminUser", "id": "1" },
-         "attrs": {},
-         "parents": []
-       }
-      ]
-    JSON
-entities = CedarPolicy::Entities.from_json(entities_json)
+entities = CedarPolicy::Entities.new([
+    CedarPolicy::Entity.new(
+        CedarPolicy::EntityUid.new("User", "1"),
+        { role: "admin" }
+    )
+])
 
 authorizer = CedarPolicy::Authorizer.new
-
-authorized = authorizer.authorize?(request, policy_set, entities) # => true
+authorizer.authorize?(request, policy_set, entities) # => true
 
 response = authorizer.authorize(request, policy_set, entities)
-response.decision # => CedarPolicy::Decision.allow
+response.decision # => CedarPolicy::Decision::ALLOW
 ```
-
-> Currently, the API design is including too many low-level details. We are working on a more user-friendly API.
 
 ## Development
 

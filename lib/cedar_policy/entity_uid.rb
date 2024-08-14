@@ -8,6 +8,8 @@ module CedarPolicy
     def initialize(type_name, id)
       @type_name = type_name.to_s
       @id = id.to_s
+
+      freeze
     end
 
     def ==(other)

@@ -1,8 +1,8 @@
-use cedar_policy::{Context, EntityUid, Request};
-use cedar_policy_core::jsonvalue::JsonValueWithNoDuplicateKeys;
-use magnus::{function, method, value::ReprValue, Error, Module, Object, RModule, Ruby, Value};
-use serde_magnus::deserialize;
+use cedar_policy::{Context, Request};
+use magnus::{function, method, Error, Module, Object, RModule, Ruby};
 use std::convert::Into;
+
+use crate::entity_uid::EntityUidWrapper;
 
 #[magnus::wrap(class = "CedarPolicy::Request")]
 pub struct RRequest(Request);
@@ -10,15 +10,15 @@ pub struct RRequest(Request);
 impl RRequest {
     fn new(
         ruby: &Ruby,
-        principal: Option<Value>,
-        action: Option<Value>,
-        resource: Option<Value>,
+        principal: Option<EntityUidWrapper>,
+        action: Option<EntityUidWrapper>,
+        resource: Option<EntityUidWrapper>,
     ) -> Result<Self, Error> {
         Ok(Self(
             Request::new(
-                parse_entity_uid(principal)?,
-                parse_entity_uid(action)?,
-                parse_entity_uid(resource)?,
+                principal.map(|p| p.into()),
+                action.map(|a| a.into()),
+                resource.map(|r| r.into()),
                 Context::empty(),
                 None,
             )
@@ -42,31 +42,6 @@ impl RRequest {
 impl<'a> From<&'a RRequest> for &'a Request {
     fn from(request: &'a RRequest) -> Self {
         &request.0
-    }
-}
-
-fn parse_entity_uid(value: Option<Value>) -> Result<Option<EntityUid>, Error> {
-    match value {
-        Some(value) => {
-            let handle = Ruby::get_with(value);
-            match value.respond_to("to_hash", false) {
-                Ok(true) => {
-                    let value: Value = value.funcall_public("to_hash", ())?;
-                    let value: JsonValueWithNoDuplicateKeys = deserialize(value)?;
-                    Ok(Some(EntityUid::from_json(value.into()).map_err(|e| {
-                        Error::new(handle.exception_runtime_error(), e.to_string())
-                    })?))
-                }
-                Err(e) => Err(Error::new(handle.exception_runtime_error(), e.to_string())),
-                _ => Err(Error::new(
-                    handle.exception_arg_error(),
-                    format!("no implicit conversion of {} into EntityUid", unsafe {
-                        value.classname()
-                    }),
-                ))?,
-            }
-        }
-        None => Ok(None),
     }
 }
 

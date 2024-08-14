@@ -170,6 +170,7 @@ name = "cedar_policy"
 version = "0.1.0"
 dependencies = [
  "cedar-policy",
+ "cedar-policy-core",
  "magnus",
 ]
 

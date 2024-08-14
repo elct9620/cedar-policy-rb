@@ -11,4 +11,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 cedar-policy = "3.2.4"
+cedar-policy-core = "3.2.4"
 magnus = { version = "0.7.1" }

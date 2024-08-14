@@ -7,7 +7,7 @@ use crate::decision::RDecision;
 pub struct RResponse(Response);
 
 impl RResponse {
-    fn decision(&self) -> RDecision {
+    pub fn decision(&self) -> RDecision {
         self.0.decision().into()
     }
 }

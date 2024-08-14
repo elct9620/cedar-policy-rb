@@ -6,7 +6,7 @@ RSpec.describe CedarPolicy::Request do
   let(:resource) { CedarPolicy::EntityUid.new("Image", "1") }
 
   let(:request) { CedarPolicy::Request.new(principal, action, resource) }
-  let(:entities) { CedarPolicy::Entities.new }
+  let(:entities) { [] }
 
   let(:policy_set) { CedarPolicy::PolicySet.new(policy) }
   let(:policy) do

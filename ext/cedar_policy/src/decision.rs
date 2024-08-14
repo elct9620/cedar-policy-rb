@@ -1,19 +1,27 @@
 use cedar_policy::Decision;
 use magnus::{
-    function, method, typed_data::IsEql, value::ReprValue, Class, Error, Module, Object, RModule,
-    Ruby, TryConvert, Value,
+    method,
+    typed_data::IsEql,
+    value::{Lazy, ReprValue},
+    Class, Error, IntoValue, Module, RClass, Ruby, TryConvert, Value,
 };
+
+use crate::CEDAR_POLICY;
+
+static DECISION: Lazy<RClass> = Lazy::new(|ruby| {
+    ruby.get_inner(&CEDAR_POLICY)
+        .define_class("Decision", ruby.class_object())
+        .unwrap()
+});
+
+pub static DECISION_ALLOW: Lazy<Value> =
+    Lazy::new(|ruby| RDecision(Decision::Allow).into_value_with(ruby));
+
+pub static DECISION_DENY: Lazy<Value> =
+    Lazy::new(|ruby| RDecision(Decision::Deny).into_value_with(ruby));
 
 #[magnus::wrap(class = "CedarPolicy::Decision")]
 pub struct RDecision(Decision);
-
-fn allow() -> RDecision {
-    RDecision(Decision::Allow)
-}
-
-fn deny() -> RDecision {
-    RDecision(Decision::Deny)
-}
 
 impl IsEql for RDecision {
     fn is_eql(&self, other: Value) -> bool {
@@ -42,12 +50,15 @@ impl From<Decision> for RDecision {
     }
 }
 
-pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
-    let class = module.define_class("Decision", ruby.class_object())?;
+pub fn init(ruby: &Ruby) -> Result<(), Error> {
+    let class = ruby.get_inner(&DECISION);
+    let allow = ruby.get_inner(&DECISION_ALLOW);
+    let deny = ruby.get_inner(&DECISION_DENY);
+
     class.undef_default_alloc_func();
 
-    class.define_singleton_method("allow", function!(allow, 0))?;
-    class.define_singleton_method("deny", function!(deny, 0))?;
+    class.const_set("ALLOW", allow)?;
+    class.const_set("DENY", deny)?;
 
     class.define_method("==", method!(<RDecision as IsEql>::is_eql, 1))?;
     class.define_method("eql?", method!(<RDecision as IsEql>::is_eql, 1))?;

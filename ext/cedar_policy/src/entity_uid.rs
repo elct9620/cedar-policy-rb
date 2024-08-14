@@ -8,7 +8,7 @@ use serde_magnus::deserialize;
 
 use crate::CEDAR_POLICY;
 
-pub static ENTITY_UID: Lazy<RClass> = Lazy::new(|ruby| {
+static ENTITY_UID: Lazy<RClass> = Lazy::new(|ruby| {
     ruby.get_inner(&CEDAR_POLICY)
         .define_class("EntityUid", ruby.class_object())
         .unwrap()

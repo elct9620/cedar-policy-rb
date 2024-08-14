@@ -16,11 +16,11 @@ fn init(ruby: &Ruby) -> Result<(), Error> {
 
     error::init(ruby)?;
     entity_uid::init(ruby)?;
+    decision::init(ruby)?;
     authorizer::init(ruby, &module)?;
     request::init(ruby, &module)?;
     response::init(ruby, &module)?;
     policy_set::init(ruby, &module)?;
-    decision::init(ruby, &module)?;
 
     Ok(())
 }

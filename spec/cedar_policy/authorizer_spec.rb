@@ -26,6 +26,12 @@ RSpec.describe CedarPolicy::Request do
 
     it { is_expected.to be_truthy }
 
+    context "with entities object" do
+      let(:entities) { CedarPolicy::Entities.new }
+
+      it { is_expected.to be_truthy }
+    end
+
     context "when the policy denies the request" do
       let(:policy) do
         <<~POLICY

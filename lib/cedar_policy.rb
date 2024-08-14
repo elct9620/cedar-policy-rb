@@ -5,6 +5,7 @@ require "json"
 require_relative "cedar_policy/version"
 require_relative "cedar_policy/cedar_policy"
 require_relative "cedar_policy/entity_uid"
+require_relative "cedar_policy/entities"
 
 module CedarPolicy
   class Error < StandardError; end

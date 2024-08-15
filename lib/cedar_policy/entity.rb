@@ -13,7 +13,7 @@ module CedarPolicy
       @parents = Set.new(parents)
     end
 
-    def ==(other)
+    def eql?(other)
       hash == other.hash
     end
 

@@ -12,9 +12,10 @@ module CedarPolicy
       freeze
     end
 
-    def ==(other)
+    def eql?(other)
       hash == other.hash
     end
+    alias == eql?
 
     def hash
       [self.class, @type_name, @id].hash

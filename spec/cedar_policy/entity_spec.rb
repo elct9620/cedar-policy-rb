@@ -14,6 +14,12 @@ RSpec.describe CedarPolicy::Entity do
     it { expect { entity }.to raise_error(ArgumentError) }
   end
 
+  describe "#==" do
+    let(:other) { CedarPolicy::Entity.new(uid) }
+
+    it { is_expected.to eq(other) }
+  end
+
   describe "#to_hash" do
     subject { entity.to_hash }
 

@@ -14,7 +14,7 @@ module CedarPolicy
     end
 
     def ==(other)
-      hahs == other.hash
+      hash == other.hash
     end
 
     def hash

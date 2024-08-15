@@ -18,6 +18,10 @@ If bundler is not being used to manage dependencies, install the gem by executin
 > [!WARNING]
 > This gem is still under development and the API may change in the future.
 
+### PolicySet
+
+Define a policy by Cedar Language:
+
 ```ruby
 policy = <<~POLICY
           permit(
@@ -27,27 +31,74 @@ policy = <<~POLICY
           );
         POLICY
 policy_set = CedarPolicy::PolicySet.new(policy)
+```
 
-principal = CedarPolicy::EntityUid.new("User", "1")
+> Currently, the single policy is not supported.
+
+### Request
+
+Prepare the Entity's ID via `EntityUid` or an object with `#to_hash` method which returns a hash with `:type` and `:id` keys.
+
+```ruby
+principal = CedarPolicy::EntityUid.new("User", "1") # or { type: "User", id: "1" }
 action = CedarPolicy::EntityUid.new("Action", "view")
 resource = CedarPolicy::EntityUid.new("Image", "1")
-ctx = CedarPolicy::Context.new
+```
 
+The `Context` object is used to store the request context. Use `Context` or an object with `#to_hash` method which returns a hash.
+
+```ruby
+ctx = CedarPolicy::Context.new({ ip: "127.0.0.1" }) # or { ip: "127.0.0.1" }
+```
+> The `Context` object can initialize without any arguments as an empty context.
+
+Create a `Request` object with the principal, action, resource, and context.
+
+```ruby
 request = CedarPolicy::Request.new(principal, action, resource, ctx)
+```
 
+### Entities
+
+Define the entities with related this request. It should be an array of `Entity` objects which have `#to_hash` method returns a hash with `:uid`,`:attrs`, and `:parents` keys.
+
+```ruby
 entities = CedarPolicy::Entities.new([
     CedarPolicy::Entity.new(
         CedarPolicy::EntityUid.new("User", "1"),
-        { role: "admin" }
-    )
+        { role: "admin" },
+        [] # Parents' EntityUid
+    ),
+    {
+        uid: { type: "Image", id: "1" },
+        attrs: {},
+        parents: []
+    }
 ])
+```
 
+### Authorizer
+
+Create an `Authorizer` object and authorize the request with the policy set and entities.
+
+```ruby
 authorizer = CedarPolicy::Authorizer.new
-authorizer.authorize?(request, policy_set, entities) # => true
+```
 
+If boolean result is enough, use `#authorize?` method.
+
+```ruby
+authorizer.authorize?(request, policy_set, entities) # => true
+```
+
+If you want to get the decision object, use `#authorize` method.
+
+```ruby
 response = authorizer.authorize(request, policy_set, entities)
 response.decision # => CedarPolicy::Decision::ALLOW
 ```
+
+> The diagnostics is not supported yet in the response.
 
 ## Roadmap
 

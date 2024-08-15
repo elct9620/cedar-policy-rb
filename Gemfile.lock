@@ -8,6 +8,7 @@ GEM
   specs:
     ast (2.4.2)
     diff-lcs (1.5.1)
+    docile (1.4.1)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
     parallel (1.26.1)
@@ -50,6 +51,12 @@ GEM
     rubocop-ast (1.32.0)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     strscan (3.1.0)
     unicode-display_width (2.5.0)
 
@@ -64,6 +71,7 @@ DEPENDENCIES
   rb_sys (~> 0.9.63)
   rspec (~> 3.0)
   rubocop (~> 1.21)
+  simplecov (~> 0.22.0)
 
 BUNDLED WITH
    2.5.9

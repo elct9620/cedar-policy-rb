@@ -23,4 +23,18 @@ RSpec.describe CedarPolicy::Entities do
 
     it { is_expected.to be_one }
   end
+
+  describe "with hash entity" do
+    let(:entity) { { uid: { type: "User", id: 1 }, attrs: {}, parents: [] } }
+
+    subject(:entities) { CedarPolicy::Entities.new([entity]) }
+
+    it { is_expected.to be_one }
+
+    describe "when euid only" do
+      let(:entity) { { uid: { type: "User", id: 1 } } }
+
+      it { is_expected.to be_one }
+    end
+  end
 end

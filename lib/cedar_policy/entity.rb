@@ -6,9 +6,13 @@ module CedarPolicy
     attr_reader :uid, :attrs, :parents
 
     def initialize(uid, attrs = {}, parents = [])
-      raise ArgumentError unless uid.is_a?(EntityUid)
+      raise ArgumentError unless uid.is_a?(EntityUid) || uid.is_a?(Hash)
 
-      @uid = uid
+      @uid = if uid.is_a?(EntityUid)
+               uid
+             else
+               EntityUid.new(*uid.values_at(:type, :id))
+             end
       @attrs = attrs
       @parents = Set.new(parents)
     end

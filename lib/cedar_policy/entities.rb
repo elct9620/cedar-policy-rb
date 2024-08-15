@@ -6,7 +6,11 @@ module CedarPolicy
     include Enumerable
 
     def initialize(entities = [])
-      @entities = Set.new(entities)
+      @entities = Set.new(entities.map do |entity|
+        next entity if entity.is_a?(Entity)
+
+        Entity.new(*entity.values_at(:uid, :attrs, :parents))
+      end)
     end
 
     def each(&block)

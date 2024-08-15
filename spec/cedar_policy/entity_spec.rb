@@ -14,6 +14,12 @@ RSpec.describe CedarPolicy::Entity do
     it { expect { entity }.to raise_error(ArgumentError) }
   end
 
+  describe "with hash euid" do
+    let(:uid) { { type: "User", id: 1 } }
+
+    it { is_expected.to have_attributes(uid: CedarPolicy::EntityUid.new("User", 1)) }
+  end
+
   describe "#eql?" do
     let(:other) { CedarPolicy::Entity.new(uid) }
 

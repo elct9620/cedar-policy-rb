@@ -136,6 +136,7 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to have_attributes(decision: CedarPolicy::Decision::ALLOW) }
     it { is_expected.to have_attributes(diagnostics: be_a(CedarPolicy::Diagnostics)) }
     it { is_expected.to have_attributes(diagnostics: have_attributes(reason: ["policy0"])) }
+    it { is_expected.to have_attributes(diagnostics: have_attributes(errors: be_none)) }
 
     describe "when the policy denies the request" do
       let(:policy) do
@@ -149,6 +150,9 @@ RSpec.describe CedarPolicy::Request do
       end
 
       it { is_expected.to have_attributes(decision: CedarPolicy::Decision::DENY) }
+      it {
+        is_expected.to have_attributes(diagnostics: have_attributes(errors: be_none))
+      }
     end
   end
 end

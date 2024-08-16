@@ -134,6 +134,7 @@ RSpec.describe CedarPolicy::Request do
     subject { authorizer.authorize(request, policy_set, entities) }
 
     it { is_expected.to have_attributes(decision: CedarPolicy::Decision::ALLOW) }
+    it { is_expected.to have_attributes(diagnostics: be_a(CedarPolicy::Diagnostics)) }
 
     context "when the policy denies the request" do
       let(:policy) do

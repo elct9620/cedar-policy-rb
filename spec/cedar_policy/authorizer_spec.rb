@@ -26,13 +26,13 @@ RSpec.describe CedarPolicy::Request do
 
   it { is_expected.to be_truthy }
 
-  context "with empty entities" do
+  describe "with empty entities" do
     let(:entities) { CedarPolicy::Entities.new }
 
     it { is_expected.to be_truthy }
   end
 
-  context "with uid only entity" do
+  describe "with uid only entity" do
     let(:policy) do
       <<~POLICY
         permit(
@@ -51,7 +51,7 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to be_truthy }
   end
 
-  context "with role attribute" do
+  describe "with role attribute" do
     let(:policy) do
       <<~POLICY
         permit(
@@ -75,7 +75,7 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to be_truthy }
   end
 
-  context "with role parents" do
+  describe "with role parents" do
     let(:policy) do
       <<~POLICY
         permit(
@@ -101,7 +101,7 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to be_truthy }
   end
 
-  context "with context" do
+  describe "with context" do
     let(:policy) do
       <<~POLICY
         permit(
@@ -116,7 +116,7 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to be_truthy }
   end
 
-  context "with policy defined" do
+  describe "with policy defined" do
     let(:policy) do
       <<~POLICY
         permit(
@@ -135,8 +135,9 @@ RSpec.describe CedarPolicy::Request do
 
     it { is_expected.to have_attributes(decision: CedarPolicy::Decision::ALLOW) }
     it { is_expected.to have_attributes(diagnostics: be_a(CedarPolicy::Diagnostics)) }
+    it { is_expected.to have_attributes(diagnostics: have_attributes(reason: ["policy0"])) }
 
-    context "when the policy denies the request" do
+    describe "when the policy denies the request" do
       let(:policy) do
         <<~POLICY
           permit(

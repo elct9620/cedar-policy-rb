@@ -6,7 +6,7 @@ use magnus::{
 };
 use serde_magnus::deserialize;
 
-use crate::CEDAR_POLICY;
+use crate::{error::PARSE_ERROR, CEDAR_POLICY};
 
 static ENTITY_UID: Lazy<RClass> = Lazy::new(|ruby| {
     ruby.get_inner(&CEDAR_POLICY)
@@ -40,18 +40,18 @@ impl IntoValue for EntityUidWrapper {
 
 impl TryConvert for EntityUidWrapper {
     fn try_convert(value: Value) -> Result<Self, magnus::Error> {
-        let handle = Ruby::get_with(value);
+        let ruby = Ruby::get_with(value);
         match value.respond_to("to_hash", false) {
             Ok(true) => {
                 let value: Value = value.funcall_public("to_hash", ())?;
                 let value: JsonValueWithNoDuplicateKeys = deserialize(value)?;
                 Ok(Self(EntityUid::from_json(value.into()).map_err(|e| {
-                    Error::new(handle.exception_runtime_error(), e.to_string())
+                    Error::new(ruby.get_inner(&PARSE_ERROR), e.to_string())
                 })?))
             }
-            Err(e) => Err(Error::new(handle.exception_runtime_error(), e.to_string())),
+            Err(e) => Err(Error::new(ruby.exception_runtime_error(), e.to_string())),
             _ => Err(Error::new(
-                handle.exception_arg_error(),
+                ruby.exception_arg_error(),
                 format!("no implicit conversion of {} into EntityUid", unsafe {
                     value.classname()
                 }),

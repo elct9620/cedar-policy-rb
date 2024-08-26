@@ -33,9 +33,21 @@ RSpec.describe CedarPolicy::Request do
   end
 
   describe "with nested namespace principal" do
-    let(:principal) { CedarPolicy::EntityUid.new("User::Admin", "1") }
+    let(:principal) { CedarPolicy::EntityUid.new("Admin::User", "1") }
 
     it { is_expected.to be_truthy }
+  end
+
+  describe "with invalid namespace principal" do
+    let(:principal) { CedarPolicy::EntityUid.new("Admin/User", "1") }
+
+    it { expect { subject }.to raise_error(CedarPolicy::ParseError).with_message(/unexpected token/) }
+  end
+
+  describe "with invalid principal" do
+    let(:principal) { 1 }
+
+    it { expect { subject }.to raise_error(ArgumentError).with_message(/no implicit conversion/) }
   end
 
   describe "with uid only entity" do

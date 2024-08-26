@@ -3,6 +3,13 @@
 RSpec.describe CedarPolicy::EntityUid do
   subject(:uid) { CedarPolicy::EntityUid.new("User", 1) }
 
+  describe "with nested namespace" do
+    subject(:uid) { CedarPolicy::EntityUid.new("User::Admin", 1) }
+
+    it { is_expected.to have_attributes(type_name: "User::Admin") }
+    it { is_expected.to have_attributes(id: "1") }
+  end
+
   describe "#==" do
     let(:other) { CedarPolicy::EntityUid.new("User", 1) }
 

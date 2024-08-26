@@ -32,6 +32,12 @@ RSpec.describe CedarPolicy::Request do
     it { is_expected.to be_truthy }
   end
 
+  describe "with nested namespace principal" do
+    let(:principal) { CedarPolicy::EntityUid.new("User::Admin", "1") }
+
+    it { is_expected.to be_truthy }
+  end
+
   describe "with uid only entity" do
     let(:policy) do
       <<~POLICY

@@ -60,7 +60,7 @@ jobs:
       platforms: ${{ steps.platforms.outputs.platforms }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
       - name: Install dependencies

@@ -73,7 +73,7 @@ jobs:
       - name: Fetch Platforms
         id: platforms
         run: |
-          platforms=$(bundle exec rake platforms)
+          platforms="$(bundle exec rake platforms[json])"
           echo "platforms=$platforms" >> $GITHUB_OUTPUT
 
   build:

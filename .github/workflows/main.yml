@@ -9,6 +9,33 @@ on:
     - cron: '30 4 * * *'
 
 jobs:
+  commitlint:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+      - name: Print versions
+        run: |
+          git --version
+          node --version
+          npm --version
+          npx commitlint --version
+      - name: Install commitlint
+        run: |
+          npm install conventional-changelog-conventionalcommits
+          npm install commitlint@latest
+
+      - name: Validate current commit (last commit) with commitlint
+        if: github.event_name == 'push'
+        run: npx commitlint --last --verbose
+
+      - name: Validate PR commits with commitlint
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
   build:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
@@ -20,13 +47,13 @@ jobs:
           - '3.3'
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Ruby & Rust
-      uses: oxidize-rb/actions/setup-ruby-and-rust@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-        cargo-cache: true
-        rubygems: '3.5.9'
-    - name: Run the default task
-      run: bundle exec rake
+      - uses: actions/checkout@v4
+      - name: Set up Ruby & Rust
+        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+          cargo-cache: true
+          rubygems: '3.5.9'
+      - name: Run the default task
+        run: bundle exec rake

@@ -41,7 +41,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    name: Ruby ${{ env.MINIMUM_RUBY_VERSION }}
+    name: Test
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby & Rust
@@ -73,7 +73,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    name: Ruby ${{ env.MINIMUM_RUBY_VERSION }}
+    name: Build
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby & Rust
@@ -92,7 +92,7 @@ jobs:
 
   build-native:
     runs-on: ubuntu-latest
-    name: Ruby ${{ env.MINIMUM_RUBY_VERSION }}-${{ matrix.platform }}
+    name: Build ${{ matrix.platform }}
     needs: ci-data
     strategy:
       matrix:

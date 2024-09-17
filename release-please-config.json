@@ -1,0 +1,18 @@
+{
+  "release-type": "ruby",
+  "last-release-sha": "7d06a6458e9805cc6ec05f456c650708cc9d9e9f",
+  "packages": {
+    ".":{
+        "release-type": "ruby",
+        "package-name": "cedar_policy",
+        "version-file": "lib/cedar_policy/version.rb",
+      }
+  },
+  "extra-files": [
+    {
+      "type": "toml",
+      "path": "ext/cedar_policy/Cargo.toml",
+      "jsonpath": "$.package.version"
+    }
+  ]
+}

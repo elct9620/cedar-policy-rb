@@ -128,4 +128,4 @@ jobs:
       - uses: actions/upload-artifact/merge@v4
         with:
           name: all-platform-gems
-          pattern: *-gem
+          pattern: '*-gem'

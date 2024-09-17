@@ -44,6 +44,8 @@ name: Release
           bundler-cache: true
           cargo-cache: true
           rubygems: '3.5.9'
+      - name: Configure trusted publishing credentials
+        uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Build plain gem
         run: bundle exec rake build
       - name: Upload plain gem
@@ -68,6 +70,8 @@ name: Release
           bundler-cache: true
           cargo-cache: true
           rubygems: ${{ env.RUBYGEMS_VERSION }}
+      - name: Configure trusted publishing credentials
+        uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Build ${{ matrix.platform }} gem
         run: bundle exec rake gem:${{ matrix.platform }}
       - name: Upload ${{ matrix.platform }} gem

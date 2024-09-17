@@ -94,6 +94,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: plain-gem
+          path: pkg/*.gem
 
   build-native:
     runs-on: ubuntu-latest
@@ -117,4 +118,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.platform }}-gem
-          path: pkg/${{ matrix.platform }}-*.gem
+          path: pkg/*.gem

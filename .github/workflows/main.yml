@@ -10,6 +10,7 @@ on:
 
 env:
   MINIMUM_RUBY_VERSION: '3.0'
+  RUBYGEMS_VERSION: '3.5.9'
 
 jobs:
   commitlint:
@@ -50,7 +51,7 @@ jobs:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
           cargo-cache: true
-          rubygems: '3.5.9'
+          rubygems: ${{ env.RUBYGEMS_VERSION }}
       - run: bundle exec rake
 
   ci-data:
@@ -60,9 +61,13 @@ jobs:
       platforms: ${{ steps.platforms.outputs.platforms }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Set up Ruby & Rust
+        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
         with:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
+          bundler-cache: true
+          cargo-cache: true
+          rubygems: ${{ env.RUBYGEMS_VERSION }}
       - name: Install dependencies
         run: bundle install
       - name: Fetch Platforms
@@ -105,7 +110,7 @@ jobs:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
           cargo-cache: true
-          rubygems: '3.5.9'
+          rubygems: ${{ env.RUBYGEMS_VERSION }}
       - name: Build ${{ matrix.platform }} gem
         run: bundle exec rake gem:${{ matrix.platform }}
       - name: Upload ${{ matrix.platform }} gem

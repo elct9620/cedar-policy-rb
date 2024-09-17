@@ -5,7 +5,7 @@
     ".":{
         "release-type": "ruby",
         "package-name": "cedar_policy",
-        "version-file": "lib/cedar_policy/version.rb",
+        "version-file": "lib/cedar_policy/version.rb"
       }
   },
   "extra-files": [

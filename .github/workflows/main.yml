@@ -8,6 +8,9 @@ on:
   schedule:
     - cron: '30 4 * * *'
 
+env:
+  MINIMUM_RUBY_VERSION: '3.0'
+
 jobs:
   commitlint:
     runs-on: ubuntu-latest
@@ -36,24 +39,77 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
-  build:
+  test:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
-    strategy:
-      matrix:
-        ruby:
-          - '3.0'
-          - '3.1'
-          - '3.3'
-
+    name: Ruby ${{ env.MINIMUM_RUBY_VERSION }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby & Rust
         uses: oxidize-rb/actions/setup-ruby-and-rust@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
+          ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
           cargo-cache: true
           rubygems: '3.5.9'
-      - name: Run the default task
-        run: bundle exec rake
+      - run: bundle exec rake
+
+  ci-data:
+    runs-on: ubuntu-latest
+    name: Fetch CI data
+    outputs:
+      platforms: ${{ steps.platforms.outputs.platforms }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
+      - name: Install dependencies
+        run: bundle install
+      - name: Fetch Platforms
+        id: platforms
+        run: |
+          platforms=$(bundle exec rake platforms)
+          echo "platforms=$platforms" >> $GITHUB_OUTPUT
+
+  build:
+    runs-on: ubuntu-latest
+    name: Ruby ${{ env.MINIMUM_RUBY_VERSION }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby & Rust
+        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+        with:
+          ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
+          bundler-cache: true
+          cargo-cache: true
+          rubygems: '3.5.9'
+      - name: Build plain gem
+        run: bundle exec rake build
+      - name: Upload plain gem
+        uses: actions/upload-artifact@v4
+        with:
+          name: plain-gem
+
+  build-native:
+    runs-on: ubuntu-latest
+    name: Ruby ${{ env.MINIMUM_RUBY_VERSION }}-${{ matrix.platform }}
+    needs: ci-data
+    strategy:
+      matrix:
+        platform: ${{ fromJSON(needs.ci-data.outputs.platforms) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby & Rust
+        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+        with:
+          ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
+          bundler-cache: true
+          cargo-cache: true
+          rubygems: '3.5.9'
+      - name: Build ${{ matrix.platform }} gem
+        run: bundle exec rake gem:${{ matrix.platform }}
+      - name: Upload ${{ matrix.platform }} gem
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}-gem
+          path: pkg/${{ matrix.platform }}-*.gem

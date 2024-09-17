@@ -61,3 +61,13 @@ namespace :gem do
   desc "Build native gems for all platforms"
   task default: %i[all]
 end
+
+desc "Support platform list"
+task :platforms, [:format] do |_t, args|
+  if args[:format] == "json"
+    require "json"
+    puts CROSS_RUBIES.map(&:platform).uniq.to_json
+  else
+    puts CROSS_RUBIES.map(&:platform).uniq
+  end
+end

@@ -16,6 +16,7 @@ jobs:
   commitlint:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'pull_request'
+    name: Commitlint
     steps:
       - uses: actions/checkout@v4
         with:

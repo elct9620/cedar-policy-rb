@@ -4,6 +4,10 @@ on:
     types:
       - created
 
+env:
+  MINIMUM_RUBY_VERSION: '3.0'
+  RUBYGEMS_VERSION: '3.5.9'
+
 permissions:
   contents: write
   pull-requests: write

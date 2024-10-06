@@ -12,7 +12,6 @@ impl RDiagnostics {
     }
 
     fn errors(&self) -> RArray {
-        self.0.errors().for_each(|e| println!("{}", e));
         let errors = self
             .0
             .errors()

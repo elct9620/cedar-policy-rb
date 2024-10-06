@@ -31,7 +31,7 @@ impl From<EntityUidWrapper> for EntityUid {
 impl IntoValue for EntityUidWrapper {
     fn into_value_with(self, handle: &Ruby) -> Value {
         let type_name = self.0.type_name().to_string();
-        let id = self.0.id().to_string();
+        let id = self.0.id().escaped().to_string();
         let class = handle.get_inner(&ENTITY_UID);
 
         return class.new_instance((type_name, id)).unwrap().into();

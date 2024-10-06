@@ -15,7 +15,11 @@ RSpec.describe CedarPolicy::Request do
     describe "with empty principal" do
       let(:principal) { nil }
 
-      it { is_expected.to be_nil }
+      it {
+        expect do
+          request
+        end.to raise_error(ArgumentError).with_message("no implicit conversion of NilClass into EntityUid")
+      }
     end
   end
 
@@ -27,7 +31,11 @@ RSpec.describe CedarPolicy::Request do
     describe "with empty action" do
       let(:action) { nil }
 
-      it { is_expected.to be_nil }
+      it {
+        expect do
+          request
+        end.to raise_error(ArgumentError).with_message("no implicit conversion of NilClass into EntityUid")
+      }
     end
   end
 
@@ -39,7 +47,11 @@ RSpec.describe CedarPolicy::Request do
     describe "with empty resource" do
       let(:resource) { nil }
 
-      it { is_expected.to be_nil }
+      it {
+        expect do
+          request
+        end.to raise_error(ArgumentError).with_message("no implicit conversion of NilClass into EntityUid")
+      }
     end
   end
 end

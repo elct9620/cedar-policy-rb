@@ -13,16 +13,16 @@ pub struct RRequest(Request);
 impl RRequest {
     fn new(
         ruby: &Ruby,
-        principal: Option<EntityUidWrapper>,
-        action: Option<EntityUidWrapper>,
-        resource: Option<EntityUidWrapper>,
+        principal: EntityUidWrapper,
+        action: EntityUidWrapper,
+        resource: EntityUidWrapper,
         context: ContextWrapper,
     ) -> Result<Self, Error> {
         Ok(Self(
             Request::new(
-                principal.map(|p| p.into()),
-                action.map(|a| a.into()),
-                resource.map(|r| r.into()),
+                principal.into(),
+                action.into(),
+                resource.into(),
                 context.into(),
                 None,
             )

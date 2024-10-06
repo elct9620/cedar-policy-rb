@@ -1,5 +1,5 @@
 use cedar_policy::AuthorizationError;
-use magnus::{method, value::Lazy, Error, ExceptionClass, Module, Ruby};
+use magnus::{value::Lazy, Error, ExceptionClass, Module, Ruby};
 
 use crate::CEDAR_POLICY;
 
@@ -24,9 +24,9 @@ pub static AUTHORIZATION_ERROR: Lazy<ExceptionClass> = Lazy::new(|ruby| {
 #[magnus::wrap(class = "CedarPolicy::AuthorizationError")]
 pub struct RAuthorizationError(AuthorizationError);
 
-impl RAuthorizationError {
-    pub fn id(&self) -> String {
-        self.0.id().to_string()
+impl ToString for RAuthorizationError {
+    fn to_string(&self) -> String {
+        self.0.to_string()
     }
 }
 
@@ -40,8 +40,7 @@ pub fn init(ruby: &Ruby) -> Result<(), Error> {
     Lazy::force(&PARSE_ERROR, ruby);
     Lazy::force(&ENTITIES_ERROR, ruby);
 
-    let authorization_error = ruby.get_inner(&AUTHORIZATION_ERROR);
-    authorization_error.define_method("id", method!(RAuthorizationError::id, 0))?;
+    ruby.get_inner(&AUTHORIZATION_ERROR);
 
     Ok(())
 }

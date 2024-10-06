@@ -8,7 +8,7 @@ on:
         type: boolean
   release:
     types:
-      - created
+      - released
 
 env:
   MINIMUM_RUBY_VERSION: '3.0'

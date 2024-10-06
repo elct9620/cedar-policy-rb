@@ -1,5 +1,5 @@
+use cedar_policy::ffi::JsonValueWithNoDuplicateKeys;
 use cedar_policy::Entities;
-use cedar_policy_core::jsonvalue::JsonValueWithNoDuplicateKeys;
 use magnus::{
     value::{Lazy, ReprValue},
     Error, Module, RClass, Ruby, TryConvert, Value,

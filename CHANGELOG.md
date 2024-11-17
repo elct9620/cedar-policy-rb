@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.4.0...v0.5.0) (2024-11-17)
+
+
+### Features
+
+* **deps:** update cedar-policy to 4.2.0 ([a7218d7](https://github.com/elct9620/cedar-policy-rb/commit/a7218d7c3af0384cfcdae735f07b06c624ea8002))
+
 ## [0.4.0](https://github.com/elct9620/cedar-policy-rb/compare/cedar_policy-v0.3.0...cedar_policy/v0.4.0) (2024-10-06)
 
 

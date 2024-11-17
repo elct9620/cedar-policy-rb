@@ -46,6 +46,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
+    if: github.actor != 'github-actions[bot]'
     strategy:
       matrix:
         ruby:

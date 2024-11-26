@@ -58,9 +58,9 @@ RSpec.describe CedarPolicy::Entities do
       )
     end
 
-    let(:user) { {uid: {type: "User", id: 1}, attrs: {}, parents: []} }
-    let(:admin) { {uid: {type: "User", id: 2}, attrs: {isAdmin: true}, parents: []} }
-    let(:image) { {uid: {type: "Image", id: 1}, attrs: {owner: {type: "User", id: 1}}, parents: []} }
+    let(:user) { {uid: {type: "User", id: "1"}, attrs: {}, parents: []} }
+    let(:admin) { {uid: {type: "User", id: "2"}, attrs: {isAdmin: true}, parents: []} }
+    let(:image) { {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: 1}}, parents: []} }
 
     subject(:entities) do
       CedarPolicy::Entities.new([user, admin, image], schema: schema)

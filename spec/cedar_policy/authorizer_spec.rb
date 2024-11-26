@@ -235,8 +235,8 @@ RSpec.describe CedarPolicy::Request do
         let(:action) { CedarPolicy::EntityUid.new("Action", "View") }
         let(:entities_data) {
           [
-            {uid: {type: "User", id: 1}, attrs: {}, parents: []},
-            {uid: {type: "Image", id: 1}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
+            {uid: {type: "User", id: "1"}, attrs: {}, parents: []},
+            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
           ]
         }
 

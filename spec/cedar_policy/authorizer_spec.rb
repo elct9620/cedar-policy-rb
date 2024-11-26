@@ -236,7 +236,7 @@ RSpec.describe CedarPolicy::Request do
         let(:entities_data) {
           [
             {uid: {type: "User", id: 1}, attrs: {}, parents: []},
-            {uid: {type: "Image", id: 1}, attrs: {owner: {type: "User", id: " 1"}}, parents: []}
+            {uid: {type: "Image", id: 1}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
           ]
         }
 
@@ -262,7 +262,7 @@ RSpec.describe CedarPolicy::Request do
           [
             {uid: {type: "User", id: "1"}, attrs: {}, parents: []},
             {uid: {type: "User", id: "3"}, attrs: {}, parents: []},
-            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: " 1"}}, parents: []}
+            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
           ]
         }
 
@@ -276,7 +276,7 @@ RSpec.describe CedarPolicy::Request do
           [
             {uid: {type: "User", id: "1"}, attrs: {}, parents: []},
             {uid: {type: "User", id: "2"}, attrs: {isAdmin: true}, parents: []},
-            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: " 1"}}, parents: []}
+            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
           ]
         }
 
@@ -288,7 +288,7 @@ RSpec.describe CedarPolicy::Request do
           [
             {uid: {type: "User", id: "1"}, attrs: {extra: "0xfeedc0de"}, parents: []},
             {uid: {type: "User", id: "2"}, attrs: {isAdmin: true}, parents: []},
-            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: " 1"}}, parents: []}
+            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
           ]
         }
 
@@ -312,7 +312,7 @@ RSpec.describe CedarPolicy::Request do
           [
             {uid: {type: "User", id: "1"}, attrs: {}, parents: []},
             {uid: {type: "User", id: "2"}, attrs: {isAdmin: "0xfeedc0de"}, parents: []},
-            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: " 1"}}, parents: []}
+            {uid: {type: "Image", id: "1"}, attrs: {owner: {type: "User", id: "1"}}, parents: []}
           ]
         }
 

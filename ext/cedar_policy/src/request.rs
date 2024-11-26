@@ -1,32 +1,45 @@
-use cedar_policy::Request;
-use magnus::{function, method, Error, Module, Object, RModule, Ruby, Value};
+use cedar_policy::{Request, Schema};
+use magnus::{
+    function, method,
+    scan_args::{get_kwargs, scan_args},
+    Error, Module, Object, RModule, Ruby, TryConvert, Value,
+};
 use std::convert::Into;
 
 use crate::{
     context::ContextWrapper,
     entity_uid::{to_euid_value, EntityUidWrapper},
+    error::REQUEST_VALIDATION_ERROR,
+    schema::RSchema,
 };
 
 #[magnus::wrap(class = "CedarPolicy::Request")]
 pub struct RRequest(Request);
 
 impl RRequest {
-    fn new(
-        ruby: &Ruby,
-        principal: EntityUidWrapper,
-        action: EntityUidWrapper,
-        resource: EntityUidWrapper,
-        context: ContextWrapper,
-    ) -> Result<Self, Error> {
+    fn new(ruby: &Ruby, args: &[Value]) -> Result<Self, Error> {
+        let args = scan_args::<_, (), (), (), _, ()>(args)?;
+        let (principal, action, resource, context): (
+            EntityUidWrapper,
+            EntityUidWrapper,
+            EntityUidWrapper,
+            ContextWrapper,
+        ) = args.required;
+        let kw_args = get_kwargs::<_, (), (Option<Value>,), ()>(args.keywords, &[], &["schema"])?;
+        let (schema,): (Option<Value>,) = kw_args.optional;
+        let schema = schema
+            .and_then(|s| <&RSchema>::try_convert(s).ok())
+            .map(|s| Schema::from(s));
+
         Ok(Self(
             Request::new(
                 principal.into(),
                 action.into(),
                 resource.into(),
                 context.into(),
-                None,
+                schema.as_ref(),
             )
-            .map_err(|e| Error::new(ruby.exception_runtime_error(), e.to_string()))?,
+            .map_err(|e| Error::new(ruby.get_inner(&REQUEST_VALIDATION_ERROR), e.to_string()))?,
         ))
     }
 
@@ -51,7 +64,7 @@ impl<'a> From<&'a RRequest> for &'a Request {
 
 pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
     let class = module.define_class("Request", ruby.class_object())?;
-    class.define_singleton_method("new", function!(RRequest::new, 4))?;
+    class.define_singleton_method("new", function!(RRequest::new, -1))?;
     class.define_method("principal", method!(RRequest::principal, 0))?;
     class.define_method("action", method!(RRequest::action, 0))?;
     class.define_method("resource", method!(RRequest::resource, 0))?;

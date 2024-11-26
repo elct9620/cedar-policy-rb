@@ -82,6 +82,13 @@ Create a `Request` object with the principal, action, resource, and context.
 request = CedarPolicy::Request.new(principal, action, resource, ctx)
 ```
 
+You can pass a CedarPolicy::Schema via the optional `schema:` option when creating the request to validate that the request conforms to the Cedar schema. If the request does not validate, a `CedarPolicy::RequestValidationError` exception will be raised.
+
+```ruby
+# NOTE: this will raise an exception if given an invalid principal + action + resource combination!
+request = CedarPolicy::Request.new(principal, action, resource, ctx, schema: schema)
+```
+
 ### Entities
 
 Define the entities with related this request. It should be an array of `Entity` objects which have `#to_hash` method returns a hash with `:uid`,`:attrs`, and `:parents` keys.

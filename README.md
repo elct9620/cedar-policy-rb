@@ -35,6 +35,30 @@ policy_set = CedarPolicy::PolicySet.new(policy)
 
 > Currently, the single policy is not supported.
 
+### Schema
+
+Optionally, define a schema in Cedar Schema Language:
+
+```ruby
+schema = CedarPolicy::Schema.new(
+  <<~SCHEMA
+    entity User, Admin, Image;
+
+    action view appliesTo {
+        principal: [User],
+        resource: [Image]
+    };
+
+    action delete appliesTo {
+        principal: [Admin],
+        resource: [Image]
+    };
+  SCHEMA
+)
+```
+
+You can check that your schema parsed as expected with the `#principals`, `#resources`, `#action_groups`, and `#actions` methods on `Schema`.
+
 ### Request
 
 Prepare the Entity's ID via `EntityUid` or an object with `#to_hash` method which returns a hash with `:type` and `:id` keys.
@@ -76,6 +100,14 @@ entities = CedarPolicy::Entities.new([
     }
 ])
 ```
+
+You can optionally pass a CedarPolicy::Schema to `Entities.new`, which will allow Cedar to evaluate action groups and validate the structure of your entities:
+
+```ruby
+entities = CedarPolicy::Entities.new(entities_array, schema: schema)
+```
+
+> Entities will not be validated until they are used for authorization.
 
 ### Authorizer
 

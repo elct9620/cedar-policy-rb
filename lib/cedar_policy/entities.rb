@@ -17,7 +17,7 @@ module CedarPolicy
 
       if schema
         schema = Schema.new(schema) unless schema.is_a?(Schema)
-        self.schema = schema
+        @schema = schema
       end
     end
 

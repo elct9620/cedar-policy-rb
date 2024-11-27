@@ -6,7 +6,7 @@ module CedarPolicy
     include Enumerable
 
     # Include schema in Entities to enable Cedar to evaluate Action groups.
-    attr_accessor :schema
+    attr_reader :schema
 
     def initialize(entities = [], schema: nil)
       @entities = Set.new(entities.map do |entity|

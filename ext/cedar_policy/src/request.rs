@@ -2,7 +2,7 @@ use cedar_policy::{Request, Schema};
 use magnus::{
     function, method,
     scan_args::{get_kwargs, scan_args},
-    Error, Module, Object, RModule, Ruby, TryConvert, Value,
+    Error, Module, Object, RModule, Ruby, Value,
 };
 use std::convert::Into;
 
@@ -25,11 +25,9 @@ impl RRequest {
             EntityUidWrapper,
             ContextWrapper,
         ) = args.required;
-        let kw_args = get_kwargs::<_, (), (Option<Value>,), ()>(args.keywords, &[], &["schema"])?;
-        let (schema,): (Option<Value>,) = kw_args.optional;
-        let schema = schema
-            .and_then(|s| <&RSchema>::try_convert(s).ok())
-            .map(|s| Schema::from(s));
+        let kw_args = get_kwargs::<_, (), (Option<&RSchema>,), ()>(args.keywords, &[], &["schema"])?;
+        let (schema,) = kw_args.optional;
+        let schema = schema.map(|s| Schema::from(s));
 
         Ok(Self(
             Request::new(

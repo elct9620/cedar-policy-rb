@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.1...v0.5.2) (2025-01-22)
+
+
+### Bug Fixes
+
+* rb-sys version too old cause build failed ([6b58381](https://github.com/elct9620/cedar-policy-rb/commit/6b583811e9d7e8eef3fe1843e7a04f8b9fc6f975))
+
 ## [0.5.1](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.0...v0.5.1) (2025-01-22)
 
 

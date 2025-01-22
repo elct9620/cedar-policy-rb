@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cedar_policy (0.5.0)
+    cedar_policy (0.6.0)
 
 GEM
   remote: https://rubygems.org/

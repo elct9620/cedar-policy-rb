@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.0...v0.5.1) (2025-01-22)
+
+
+### Bug Fixes
+
+* the Gemfile.lock not updated ([8853e74](https://github.com/elct9620/cedar-policy-rb/commit/8853e747188e83aa4ac1bfa7b4d1c361932cdb76))
+
 ## [0.5.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.4.0...v0.5.0) (2025-01-22)
 
 

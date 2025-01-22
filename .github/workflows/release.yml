@@ -63,7 +63,7 @@ jobs:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
           cargo-cache: true
-          rubygems: '3.5.9'
+          rubygems: ${{ env.RUBYGEMS_VERSION }}
       - name: Build plain gem
         run: bundle exec rake build
       - name: Upload plain gem

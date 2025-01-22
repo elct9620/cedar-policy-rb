@@ -4,6 +4,7 @@
   "packages": {
     ".":{
         "component": "cedar_policy",
+        "include-component-in-tag": false,
         "release-type": "ruby"
       }
   },

@@ -3,8 +3,8 @@
   "last-release-sha": "7d06a6458e9805cc6ec05f456c650708cc9d9e9f",
   "packages": {
     ".":{
-        "release-type": "ruby",
-        "version-file": "lib/cedar_policy/version.rb"
+        "component": "cedar_policy",
+        "release-type": "ruby"
       }
   },
   "extra-files": [

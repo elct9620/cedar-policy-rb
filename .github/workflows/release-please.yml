@@ -24,3 +24,8 @@ jobs:
     needs: release-please
     uses: ./.github/workflows/release.yml
     secrets: inherit
+
+  run-tests:
+    if: ${{ needs.release-please.outputs.prs_created }}
+    needs: release-please
+    uses: ./.github/workflows/main.yml

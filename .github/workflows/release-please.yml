@@ -16,6 +16,10 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
-      - uses: ./.github/workflows/release.yml
-        secrets: inherit
-        if: ${{ steps.release.outputs.release_created }}
+
+  release-gem:
+    runs-on: ubuntu-latest
+    if: ${{ needs.release-please.release.outputs.release_created }}
+    needs: release-please
+    secrets: inherit
+    uses: ./.github/workflows/release.yml

@@ -22,4 +22,3 @@ jobs:
     if: ${{ needs.release-please.release.outputs.release_created }}
     needs: release-please
     uses: ./.github/workflows/release.yml
-    secrets: inherit

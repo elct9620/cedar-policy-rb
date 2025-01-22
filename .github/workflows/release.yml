@@ -6,6 +6,7 @@ on:
         required: false
         default: 'false'
         type: boolean
+  workflow_call:
   release:
     types:
       - released

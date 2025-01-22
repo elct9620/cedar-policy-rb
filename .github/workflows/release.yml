@@ -4,14 +4,14 @@ on:
       push:
         description: 'Push to RubyGems'
         required: false
-        default: 'false'
+        default: false
         type: boolean
   workflow_call:
     inputs:
       push:
         description: 'Push to RubyGems'
         required: false
-        default: 'true'
+        default: true
         type: boolean
 
   release:

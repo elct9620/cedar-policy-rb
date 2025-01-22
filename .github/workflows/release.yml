@@ -74,7 +74,7 @@ jobs:
       - name: Configure trusted publishing credentials
         uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Publish plain gem
-        if: github.event_name == 'release' || github.event.inputs.push == 'true'
+        if: github.event_name == 'release' || inputs.push
         run: gem push pkg/*.gem
 
 
@@ -104,5 +104,5 @@ jobs:
       - name: Configure trusted publishing credentials
         uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Publish ${{ matrix.platform }} gem
-        if: github.event_name == 'release' || github.event.inputs.push == 'true'
+        if: github.event_name == 'release' || inputs.push
         run: gem push pkg/*.gem

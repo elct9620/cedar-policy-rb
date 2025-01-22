@@ -1,12 +1,19 @@
 on:
   workflow_dispatch:
     inputs:
-      force:
-        description: 'Force a release'
+      push:
+        description: 'Push to RubyGems'
         required: false
         default: 'false'
         type: boolean
   workflow_call:
+    inputs:
+      push:
+        description: 'Push to RubyGems'
+        required: false
+        default: 'true'
+        type: boolean
+
   release:
     types:
       - released
@@ -67,7 +74,7 @@ jobs:
       - name: Configure trusted publishing credentials
         uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Publish plain gem
-        if: github.event_name == 'release' || github.event.inputs.force == 'true'
+        if: github.event_name == 'release' || github.event.inputs.push == 'true'
         run: gem push pkg/*.gem
 
 
@@ -97,5 +104,5 @@ jobs:
       - name: Configure trusted publishing credentials
         uses: rubygems/configure-rubygems-credentials@v1.0.0
       - name: Publish ${{ matrix.platform }} gem
-        if: github.event_name == 'release' || github.event.inputs.force == 'true'
+        if: github.event_name == 'release' || github.event.inputs.push == 'true'
         run: gem push pkg/*.gem

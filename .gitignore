@@ -18,3 +18,4 @@ node_modules/
 
 # rspec failure tracking
 .rspec_status
+.aider*

@@ -31,18 +31,18 @@ CROSS_RUBIES = File.read(".cross_rubies").split("\n").filter_map do |line|
   end
 end
 
-ENV["RUBY_CC_VERSION"] = CROSS_RUBIES.map(&:ver).uniq.join(":")
+RUBY_CC_VERSION = CROSS_RUBIES.map(&:ver).uniq.join(",")
 
 desc "Build native extension for a given platform (i.e. `rake 'native[x86_64-linux]'`)"
 task :native, [:platform] do |_t, platform:|
-  sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--build"
+  sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--ruby-versions", RUBY_CC_VERSION, "--build"
 end
 
 namespace :gem do
   CROSS_RUBIES.map(&:platform).each do |platform|
     desc "Build native gem for #{platform}"
     task platform do
-      sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--build"
+      sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--ruby-versions", RUBY_CC_VERSION, "--build"
     end
   end
 

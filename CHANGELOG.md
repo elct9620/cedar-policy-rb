@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.2...v0.5.3) (2025-06-10)
+
+
+### Bug Fixes
+
+* pass ruby versions to rb-sys-dock using --ruby-versions flag ([b94f1b7](https://github.com/elct9620/cedar-policy-rb/commit/b94f1b7e9c5d52c4e514c5f8553ccf7a71b25c53))
+
 ## [0.5.2](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.1...v0.5.2) (2025-01-22)
 
 

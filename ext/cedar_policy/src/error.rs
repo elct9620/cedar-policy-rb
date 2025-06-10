@@ -21,6 +21,12 @@ pub static AUTHORIZATION_ERROR: Lazy<ExceptionClass> = Lazy::new(|ruby| {
         .unwrap()
 });
 
+pub static REQUEST_VALIDATION_ERROR: Lazy<ExceptionClass> = Lazy::new(|ruby| {
+    ruby.get_inner(&CEDAR_POLICY)
+        .define_error("RequestValidationError", ruby.exception_standard_error())
+        .unwrap()
+});
+
 #[magnus::wrap(class = "CedarPolicy::AuthorizationError")]
 pub struct RAuthorizationError(AuthorizationError);
 
@@ -39,6 +45,7 @@ impl From<AuthorizationError> for RAuthorizationError {
 pub fn init(ruby: &Ruby) -> Result<(), Error> {
     Lazy::force(&PARSE_ERROR, ruby);
     Lazy::force(&ENTITIES_ERROR, ruby);
+    Lazy::force(&REQUEST_VALIDATION_ERROR, ruby);
 
     ruby.get_inner(&AUTHORIZATION_ERROR);
 

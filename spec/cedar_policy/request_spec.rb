@@ -54,4 +54,40 @@ RSpec.describe CedarPolicy::Request do
       }
     end
   end
+
+  context("when schema dictates principals for actions") do
+    let(:schema) do
+      CedarPolicy::Schema.new(
+        <<~SCHEMA
+          entity User, Admin, Image;
+
+          action view appliesTo {
+              principal: [User],
+              resource: [Image]
+          };
+
+          action delete appliesTo {
+              principal: [Admin],
+              resource: [Image]
+          };
+        SCHEMA
+      )
+    end
+
+    subject(:request) { CedarPolicy::Request.new(principal, action, resource, {}, schema: schema) }
+
+    describe ".new raises error when principal is not valid for action" do
+      let(:principal) { CedarPolicy::EntityUid.new("User", "1") }
+      let(:action) { CedarPolicy::EntityUid.new("Action", "delete") }
+
+      it { expect { request }.to(raise_error(CedarPolicy::RequestValidationError)) }
+    end
+
+    describe ".new returns request when principal is valid for action" do
+      let(:principal) { CedarPolicy::EntityUid.new("Admin", "1") }
+      let(:action) { CedarPolicy::EntityUid.new("Action", "delete") }
+
+      it { is_expected.to(have_attributes(principal: CedarPolicy::EntityUid.new("Admin", "1"))) }
+    end
+  end
 end

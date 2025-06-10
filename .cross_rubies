@@ -18,3 +18,8 @@
 3.3.0:x64-mingw-ucrt
 3.3.0:x86_64-darwin
 3.3.0:x86_64-linux
+3.4.0:aarch64-linux
+3.4.0:arm64-darwin
+3.4.0:x64-mingw-ucrt
+3.4.0:x86_64-darwin
+3.4.0:x86_64-linux

@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.6.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.3...v0.6.0) (2025-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* depends on behavior in RubyGems >= 3.3.22
+
+### Features
+
+* adds support for musl libc ([#43](https://github.com/elct9620/cedar-policy-rb/issues/43)) ([563f4f4](https://github.com/elct9620/cedar-policy-rb/commit/563f4f45aeb9f97cccc8aad384702a7ac5dcbc7a))
+
+
+### Miscellaneous Chores
+
+* release 0.6.0 ([1e18e75](https://github.com/elct9620/cedar-policy-rb/commit/1e18e75574ef30d00cf21de212b88360d718e5b4))
+
 ## [0.5.3](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.2...v0.5.3) (2025-06-10)
 
 

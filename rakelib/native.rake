@@ -31,7 +31,7 @@ CROSS_RUBIES = File.read(".cross_rubies").split("\n").filter_map do |line|
   end
 end
 
-RUBY_CC_VERSION = CROSS_RUBIES.map(&:ver).uniq.min
+RUBY_CC_VERSION = CROSS_RUBIES.map(&:ver).uniq.join(",")
 
 desc "Build native extension for a given platform (i.e. `rake 'native[x86_64-linux]'`)"
 task :native, [:platform] do |_t, platform:|
@@ -42,8 +42,7 @@ namespace :gem do
   CROSS_RUBIES.map(&:platform).each do |platform|
     desc "Build native gem for #{platform}"
     task platform do
-      ruby_version = CROSS_RUBIES.filter { |cr| cr.platform == platform }.map(&:ver).min
-      sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--ruby-versions", ruby_version, "--build"
+      sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--ruby-versions", RUBY_CC_VERSION, "--build"
     end
   end
 

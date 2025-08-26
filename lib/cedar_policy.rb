@@ -4,11 +4,17 @@ require "json"
 require "set"
 
 require_relative "cedar_policy/version"
-require_relative "cedar_policy/cedar_policy"
 require_relative "cedar_policy/entity_uid"
 require_relative "cedar_policy/entity"
 require_relative "cedar_policy/entities"
 require_relative "cedar_policy/context"
+
+begin
+  RUBY_VERSION =~ /(\d+\.\d+)/
+  require "cedar_policy/#{Regexp.last_match(1)}/cedar_policy"
+rescue LoadError
+  require "cedar_policy/cedar_policy"
+end
 
 # :nodoc:
 module CedarPolicy

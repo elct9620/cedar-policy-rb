@@ -42,7 +42,8 @@ namespace :gem do
   CROSS_RUBIES.map(&:platform).each do |platform|
     desc "Build native gem for #{platform}"
     task platform do
-      sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--ruby-versions", RUBY_CC_VERSION, "--build"
+      ruby_version = CROSS_RUBIES.filter { |cr| cr.platform == platform }.map(&:ver).min
+      sh "bundle", "exec", "rb-sys-dock", "--platform", platform, "--ruby-versions", ruby_version, "--build"
     end
   end
 

@@ -31,7 +31,7 @@ CROSS_RUBIES = File.read(".cross_rubies").split("\n").filter_map do |line|
   end
 end
 
-RUBY_CC_VERSION = CROSS_RUBIES.map(&:ver).uniq.join(",")
+RUBY_CC_VERSION = CROSS_RUBIES.map(&:ver).uniq.min
 
 desc "Build native extension for a given platform (i.e. `rake 'native[x86_64-linux]'`)"
 task :native, [:platform] do |_t, platform:|

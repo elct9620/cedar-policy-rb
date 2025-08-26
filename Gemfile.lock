@@ -23,7 +23,7 @@ GEM
     rake-compiler (1.3.0)
       rake
     rake-compiler-dock (1.9.1)
-    rb_sys (0.9.116)
+    rb_sys (0.9.117)
       rake-compiler-dock (= 1.9.1)
     regexp_parser (2.11.1)
     rspec (3.13.1)
@@ -72,7 +72,7 @@ DEPENDENCIES
   cedar_policy!
   rake (~> 13.3)
   rake-compiler
-  rb_sys (= 0.9.116)
+  rb_sys (~> 0.9.117)
   rspec (~> 3.13)
   rubocop (~> 1.79)
   simplecov (~> 0.22.0)

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.2](https://github.com/elct9620/cedar-policy-rb/compare/v0.6.1...v0.6.2) (2025-08-26)
+
+
+### Bug Fixes
+
+* improve Ruby version compatibility and cross-compilation ([e08a3a0](https://github.com/elct9620/cedar-policy-rb/commit/e08a3a0c2266a1feb74a83ee38705205653f3625))
+* revert rb_sys to 0.9.116 and restore mingw support ([6646b08](https://github.com/elct9620/cedar-policy-rb/commit/6646b08aea8954b0071b29936d03b48854eb203a))
+* select correct minimal ruby version for different platform ([9d9fc09](https://github.com/elct9620/cedar-policy-rb/commit/9d9fc09a4c8dec6269cd05b22774c5e03aeb2dce))
+
+
+### Reverts
+
+* restore rb_sys to 0.9.117 after investigation ([f1e77dd](https://github.com/elct9620/cedar-policy-rb/commit/f1e77ddca61b7c48575c6548620a76cc5954524e))
+
 ## [0.6.1](https://github.com/elct9620/cedar-policy-rb/compare/v0.6.0...v0.6.1) (2025-08-26)
 
 

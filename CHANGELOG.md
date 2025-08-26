@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/elct9620/cedar-policy-rb/compare/v0.6.0...v0.6.1) (2025-08-26)
+
+
+### Miscellaneous Chores
+
+* release-as 0.6.1 ([882b4d9](https://github.com/elct9620/cedar-policy-rb/commit/882b4d9566a09f733195fc8216032a2fd0f3c7b9))
+
 ## [0.6.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.5.3...v0.6.0) (2025-06-12)
 
 

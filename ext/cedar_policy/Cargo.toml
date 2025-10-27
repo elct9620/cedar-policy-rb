@@ -12,4 +12,4 @@ crate-type = ["cdylib"]
 [dependencies]
 cedar-policy = "4.7.0"
 magnus = "0.7.1"
-serde_magnus = "0.9.0"
+serde_magnus = "0.10.0"

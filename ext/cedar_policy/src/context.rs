@@ -28,7 +28,7 @@ impl TryConvert for ContextWrapper {
         match value.respond_to("to_hash", false) {
             Ok(true) => {
                 let value: Value = value.funcall_public("to_hash", ())?;
-                let value: JsonValueWithNoDuplicateKeys = deserialize(value)?;
+                let value: JsonValueWithNoDuplicateKeys = deserialize(&handle, value)?;
                 Ok(Self(Context::from_json_value(value.into(), None).map_err(
                     |e| Error::new(handle.exception_runtime_error(), e.to_string()),
                 )?))

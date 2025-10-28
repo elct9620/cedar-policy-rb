@@ -28,7 +28,7 @@ impl TryConvert for EntitiesWrapper {
         match value.respond_to("to_ary", false) {
             Ok(true) => {
                 let value: Value = value.funcall_public("to_ary", ())?;
-                let value: JsonValueWithNoDuplicateKeys = deserialize(value)?;
+                let value: JsonValueWithNoDuplicateKeys = deserialize(&handle, value)?;
                 Ok(Self(
                     Entities::from_json_value(value.into(), None)
                         .map_err(|e| Error::new(handle.exception_arg_error(), e.to_string()))?,

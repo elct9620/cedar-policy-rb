@@ -12,12 +12,8 @@ impl RDiagnostics {
     }
 
     fn errors(&self) -> RArray {
-        let errors = self
-            .0
-            .errors()
-            .map(|e| RAuthorizationError::from(e.clone()));
-
-        RArray::from_iter(errors)
+        let ruby = Ruby::get().unwrap();
+        ruby.ary_from_iter(self.0.errors().cloned().map(RAuthorizationError::from))
     }
 }
 

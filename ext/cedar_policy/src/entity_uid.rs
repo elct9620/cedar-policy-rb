@@ -34,7 +34,7 @@ impl IntoValue for EntityUidWrapper {
         let id = self.0.id().escaped().to_string();
         let class = handle.get_inner(&ENTITY_UID);
 
-        return class.new_instance((type_name, id)).unwrap().into();
+        class.new_instance((type_name, id)).unwrap().into()
     }
 }
 
@@ -44,7 +44,7 @@ impl TryConvert for EntityUidWrapper {
         match value.respond_to("to_hash", false) {
             Ok(true) => {
                 let value: Value = value.funcall_public("to_hash", ())?;
-                let value: JsonValueWithNoDuplicateKeys = deserialize(value)?;
+                let value: JsonValueWithNoDuplicateKeys = deserialize(&ruby, value)?;
                 Ok(Self(EntityUid::from_json(value.into()).map_err(|e| {
                     Error::new(ruby.get_inner(&PARSE_ERROR), e.to_string())
                 })?))
@@ -61,7 +61,9 @@ impl TryConvert for EntityUidWrapper {
 }
 
 pub fn to_euid_value(euid: &EntityUid) -> Value {
-    EntityUidWrapper::new(euid.clone()).into_value_with(&Ruby::get().unwrap())
+    let ruby = Ruby::get()
+        .expect("to_euid_value() can only be called from a Ruby thread");
+    EntityUidWrapper::new(euid.clone()).into_value_with(&ruby)
 }
 
 pub fn init(ruby: &Ruby) -> Result<(), Error> {

@@ -61,7 +61,9 @@ impl TryConvert for EntityUidWrapper {
 }
 
 pub fn to_euid_value(euid: &EntityUid) -> Value {
-    EntityUidWrapper::new(euid.clone()).into_value_with(&Ruby::get().unwrap())
+    let ruby = Ruby::get()
+        .expect("to_euid_value() can only be called from a Ruby thread");
+    EntityUidWrapper::new(euid.clone()).into_value_with(&ruby)
 }
 
 pub fn init(ruby: &Ruby) -> Result<(), Error> {

@@ -12,7 +12,8 @@ impl RDiagnostics {
     }
 
     fn errors(&self) -> RArray {
-        let ruby = Ruby::get().unwrap();
+        let ruby = Ruby::get()
+            .expect("errors() can only be called from a Ruby thread");
         ruby.ary_from_iter(self.0.errors().cloned().map(RAuthorizationError::from))
     }
 }

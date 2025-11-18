@@ -129,9 +129,9 @@ dependencies = [
 
 [[package]]
 name = "cedar-policy"
-version = "4.7.0"
+version = "4.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec59e2364d36d767fe2be9a38040087746b1db20b27868701f4356d9fc589736"
+checksum = "1a480f79406e0c4483e883cab35d8519729eee7e74ef3925e3c7b458d88e246f"
 dependencies = [
  "cedar-policy-core",
  "cedar-policy-formatter",
@@ -149,9 +149,9 @@ dependencies = [
 
 [[package]]
 name = "cedar-policy-core"
-version = "4.7.0"
+version = "4.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b9d9a9691e7429fc89b447222688bbe2ef052a2c9b1e1f3a1d3f169cae080a6"
+checksum = "aa273b0742637d3f729d47bd85457608dcf03caf1cd7466c269b34c782d42011"
 dependencies = [
  "chrono",
  "educe",
@@ -177,9 +177,9 @@ dependencies = [
 
 [[package]]
 name = "cedar-policy-formatter"
-version = "4.7.0"
+version = "4.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22c837a7c5e55828c73ea468ba368aa1c74fb151ff8110ff94fb97bebcb5d095"
+checksum = "538d4b2b479160585eca70b4e46f7a7219d2c6b59410568c48fb0e3ca614b663"
 dependencies = [
  "cedar-policy-core",
  "itertools 0.14.0",
@@ -594,9 +594,9 @@ dependencies = [
 
 [[package]]
 name = "linked_hash_set"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bae85b5be22d9843c80e5fc80e9b64c8a3b1f98f867c709956eca3efff4e92e2"
+checksum = "984fb35d06508d1e69fc91050cceba9c0b748f983e6739fa2c7a9237154c52c8"
 dependencies = [
  "linked-hash-map",
 ]
@@ -1085,9 +1085,9 @@ dependencies = [
 
 [[package]]
 name = "serde_with"
-version = "3.15.0"
+version = "3.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6093cd8c01b25262b84927e0f7151692158fab02d961e04c979d3903eba7ecc5"
+checksum = "10574371d41b0d9b2cff89418eda27da52bcaff2cc8741db26382a77c29131f1"
 dependencies = [
  "base64",
  "chrono",
@@ -1104,9 +1104,9 @@ dependencies = [
 
 [[package]]
 name = "serde_with_macros"
-version = "3.15.0"
+version = "3.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7e6c180db0816026a61afa1cff5344fb7ebded7e4d3062772179f2501481c27"
+checksum = "08a72d8216842fdd57820dc78d840bef99248e35fb2554ff923319e60f2d686b"
 dependencies = [
  "darling",
  "proc-macro2",

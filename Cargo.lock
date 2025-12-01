@@ -129,9 +129,9 @@ dependencies = [
 
 [[package]]
 name = "cedar-policy"
-version = "4.8.0"
+version = "4.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1a480f79406e0c4483e883cab35d8519729eee7e74ef3925e3c7b458d88e246f"
+checksum = "6a9bb2659528c9901c2ef23ca1a3d6915aed8ee81d1a32c468b26fb541b27b24"
 dependencies = [
  "cedar-policy-core",
  "cedar-policy-formatter",
@@ -149,9 +149,9 @@ dependencies = [
 
 [[package]]
 name = "cedar-policy-core"
-version = "4.8.0"
+version = "4.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aa273b0742637d3f729d47bd85457608dcf03caf1cd7466c269b34c782d42011"
+checksum = "890556d1962b99fc37fdff92279c20c3f1aedce8ec0f0f3c47835f0a00a7d125"
 dependencies = [
  "chrono",
  "educe",
@@ -177,9 +177,9 @@ dependencies = [
 
 [[package]]
 name = "cedar-policy-formatter"
-version = "4.8.0"
+version = "4.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "538d4b2b479160585eca70b4e46f7a7219d2c6b59410568c48fb0e3ca614b663"
+checksum = "fc9e0957a377f88787a348b6155414d656833e1f3bd592cb7e9aae1656ba0384"
 dependencies = [
  "cedar-policy-core",
  "itertools 0.14.0",

@@ -10,6 +10,6 @@ publish = false
 crate-type = ["cdylib"]
 
 [dependencies]
-cedar-policy = "4.8.1"
+cedar-policy = "4.8.2"
 magnus = "0.8.2"
 serde_magnus = "0.10.0"

@@ -8,7 +8,7 @@ gemspec
 gem "rake", "~> 13.3"
 
 gem "rake-compiler"
-gem "rb_sys", "~> 0.9.119"
+gem "rb_sys", "~> 0.9.123"
 
 gem "rspec", "~> 3.13"
 

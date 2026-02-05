@@ -40,7 +40,7 @@ policy_set = CedarPolicy::PolicySet.new(policy)
 Prepare the Entity's ID via `EntityUid` or an object with `#to_hash` method which returns a hash with `:type` and `:id` keys.
 
 ```ruby
-principal = CedarPolicy::EntityUid.new("User", "1") # or { type: "User", id: "1" }
+principal = CedarPolicy::EntityUid.new("AdminUser", "1") # or { type: "AdminUser", id: "1" }
 action = CedarPolicy::EntityUid.new("Action", "view")
 resource = CedarPolicy::EntityUid.new("Image", "1")
 ```

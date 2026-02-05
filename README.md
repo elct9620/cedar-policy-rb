@@ -85,10 +85,10 @@ Create an `Authorizer` object and authorize the request with the policy set and 
 authorizer = CedarPolicy::Authorizer.new
 ```
 
-If boolean result is enough, use `#authorize?` method.
+If boolean result is enough, use `#authorized?` method.
 
 ```ruby
-authorizer.authorize?(request, policy_set, entities) # => true
+authorizer.authorized?(request, policy_set, entities) # => true
 ```
 
 If you want to get the decision object, use `#authorize` method.

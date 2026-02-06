@@ -40,7 +40,7 @@ policy_set = CedarPolicy::PolicySet.new(policy)
 Prepare the Entity's ID via `EntityUid` or an object with `#to_hash` method which returns a hash with `:type` and `:id` keys.
 
 ```ruby
-principal = CedarPolicy::EntityUid.new("User", "1") # or { type: "User", id: "1" }
+principal = CedarPolicy::EntityUid.new("AdminUser", "1") # or { type: "AdminUser", id: "1" }
 action = CedarPolicy::EntityUid.new("Action", "view")
 resource = CedarPolicy::EntityUid.new("Image", "1")
 ```
@@ -85,10 +85,10 @@ Create an `Authorizer` object and authorize the request with the policy set and 
 authorizer = CedarPolicy::Authorizer.new
 ```
 
-If boolean result is enough, use `#authorize?` method.
+If boolean result is enough, use `#authorized?` method.
 
 ```ruby
-authorizer.authorize?(request, policy_set, entities) # => true
+authorizer.authorized?(request, policy_set, entities) # => true
 ```
 
 If you want to get the decision object, use `#authorize` method.

@@ -1054,9 +1054,9 @@ dependencies = [
 
 [[package]]
 name = "serde_magnus"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c4a5121544138e6a14036e48ecbe589fb63577f35620caaa32642257b412c317"
+checksum = "8ff64c88ddd26acdcad5a501f18bcc339927b77b69f4a03bfaf2a6fc5ba2ac4b"
 dependencies = [
  "magnus",
  "serde",

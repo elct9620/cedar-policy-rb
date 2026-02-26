@@ -23,6 +23,17 @@ impl RPolicySet {
     fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
+
+    fn policy_ids(&self) -> Vec<String> {
+        self.0.policies()
+            .map(|policy| {
+                // Try to get the @id annotation first, fall back to auto-generated ID
+                policy.annotation("id")
+                    .map(|s| s.to_string())
+                    .unwrap_or_else(|| policy.id().to_string())
+            })
+            .collect()
+    }
 }
 
 impl From<&RPolicySet> for PolicySet {
@@ -43,6 +54,7 @@ pub fn init(ruby: &Ruby, module: &RModule) -> Result<(), Error> {
     let class = module.define_class("PolicySet", ruby.class_object())?;
     class.define_singleton_method("new", function!(RPolicySet::new, -1))?;
     class.define_method("empty?", method!(RPolicySet::is_empty, 0))?;
+    class.define_method("policy_ids", method!(RPolicySet::policy_ids, 0))?;
 
     Ok(())
 }

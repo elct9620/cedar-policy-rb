@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.6.2...v0.7.0) (2026-02-26)
+
+
+### Features
+
+* add policy_ids method to PolicySet  ([3812daf](https://github.com/elct9620/cedar-policy-rb/commit/3812dafce10a6574c07316ec73e2e45c15fdcd9f))
+
+
+### Bug Fixes
+
+* **deps:** enable stable-api-compiled-fallback for Ruby 4.0 support ([c3603ec](https://github.com/elct9620/cedar-policy-rb/commit/c3603ec67e0aa25cba9f57a08c2906a1bb43ccce))
+
 ## [0.6.2](https://github.com/elct9620/cedar-policy-rb/compare/v0.6.1...v0.6.2) (2025-08-26)
 
 

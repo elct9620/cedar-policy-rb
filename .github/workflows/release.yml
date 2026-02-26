@@ -37,12 +37,14 @@ jobs:
       platforms: ${{ steps.platforms.outputs.platforms }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Ruby & Rust
-        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
-          cargo-cache: true
           rubygems: ${{ env.RUBYGEMS_VERSION }}
       - name: Install dependencies
         run: bundle install
@@ -57,12 +59,14 @@ jobs:
     name: Build
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Ruby & Rust
-        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
-          cargo-cache: true
           rubygems: ${{ env.RUBYGEMS_VERSION }}
       - name: Build plain gem
         run: bundle exec rake build
@@ -87,12 +91,15 @@ jobs:
         platform: ${{ fromJSON(needs.ci-data.outputs.platforms) }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Ruby & Rust
-        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+          prefix-key: v0-rust-${{ matrix.platform }}
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.MINIMUM_RUBY_VERSION }}
           bundler-cache: true
-          cargo-cache: true
           rubygems: ${{ env.RUBYGEMS_VERSION }}
       - name: Build ${{ matrix.platform }} gem
         run: bundle exec rake gem:${{ matrix.platform }}

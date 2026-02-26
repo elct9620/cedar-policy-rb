@@ -59,11 +59,14 @@ jobs:
           - '3.4'
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Ruby & Rust
-        uses: oxidize-rb/actions/setup-ruby-and-rust@v1
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+          prefix-key: v0-rust-${{ matrix.ruby }}
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-          cargo-cache: true
           rubygems: ${{ env.RUBYGEMS_VERSION }}
       - run: bundle exec rake

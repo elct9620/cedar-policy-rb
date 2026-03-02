@@ -12,6 +12,6 @@ gem "rb_sys", "~> 0.9.124"
 
 gem "rspec", "~> 3.13"
 
-gem "rubocop", "~> 1.84"
+gem "rubocop", "~> 1.85"
 
 gem "simplecov", "~> 0.22.0"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/elct9620/cedar-policy-rb/compare/v0.7.0...v0.7.1) (2026-09-09)
+
+
+### Bug Fixes
+
+* add Ruby 4.0 to cross-compile matrix ([db45762](https://github.com/elct9620/cedar-policy-rb/commit/db457622f525cac5daae3b1f25b329aa3f9f3faf))
+
 ## [0.7.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.6.2...v0.7.0) (2026-02-26)
 
 

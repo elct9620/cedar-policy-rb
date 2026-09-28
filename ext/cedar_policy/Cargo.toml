@@ -11,6 +11,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 cedar-policy = "4.11.0"
-magnus = "0.8.2"
+magnus = "0.9.0"
 rb-sys = { version = ">=0.9.113", features = ["stable-api-compiled-fallback"] }
 serde_magnus = "0.11.0"

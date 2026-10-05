@@ -197,7 +197,7 @@ name = "cedar_policy"
 version = "0.7.1"
 dependencies = [
  "cedar-policy",
- "magnus",
+ "magnus 0.9.1",
  "rb-sys",
  "serde_magnus",
 ]
@@ -656,11 +656,23 @@ dependencies = [
 
 [[package]]
 name = "magnus"
-version = "0.8.2"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b36a5b126bbe97eb0d02d07acfeb327036c6319fd816139a49824a83b7f9012"
+checksum = "86a4f30dd400bf26769435129d7ecc529f56e3d45012ee6c394d6dbff3296bf9"
 dependencies = [
- "magnus-macros",
+ "magnus-macros 0.8.0",
+ "rb-sys",
+ "rb-sys-env",
+ "seq-macro",
+]
+
+[[package]]
+name = "magnus"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4c01bef153b8d0f086991f0e166474a1d57b738221f9a9c11405d498ac95a44d"
+dependencies = [
+ "magnus-macros 0.9.1",
  "rb-sys",
  "rb-sys-env",
  "seq-macro",
@@ -671,6 +683,17 @@ name = "magnus-macros"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47607461fd8e1513cb4f2076c197d8092d921a1ea75bd08af97398f593751892"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
+]
+
+[[package]]
+name = "magnus-macros"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9dafde2eeb66f090e0f326112323eb8324b12cb32b5d1210e541d3df6b0ce77e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -882,9 +905,9 @@ dependencies = [
 
 [[package]]
 name = "rb-sys-env"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08f8d2924cf136a1315e2b4c7460a39f62ef11ee5d522df9b2750fab55b868b6"
+checksum = "cca7ad6a7e21e72151d56fe2495a259b5670e204c3adac41ee7ef676ea08117a"
 
 [[package]]
 name = "redox_syscall"
@@ -1069,7 +1092,7 @@ version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ff64c88ddd26acdcad5a501f18bcc339927b77b69f4a03bfaf2a6fc5ba2ac4b"
 dependencies = [
- "magnus",
+ "magnus 0.8.3",
  "serde",
  "tap",
 ]

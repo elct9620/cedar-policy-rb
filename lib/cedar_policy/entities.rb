@@ -13,10 +13,10 @@ module CedarPolicy
       end)
     end
 
-    def each(&block)
+    def each(&)
       return enum_for(:each) unless block_given?
 
-      @entities.each(&block)
+      @entities.each(&)
     end
 
     def to_ary

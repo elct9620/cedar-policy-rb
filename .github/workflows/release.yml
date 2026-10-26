@@ -19,7 +19,7 @@ on:
       - released
 
 env:
-  MINIMUM_RUBY_VERSION: '3.0'
+  MINIMUM_RUBY_VERSION: '3.3'
   RUBYGEMS_VERSION: '3.5.9'
 
 permissions:

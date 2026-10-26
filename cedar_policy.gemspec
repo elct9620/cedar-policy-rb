@@ -12,7 +12,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.description = "Ruby bindings for Cedar policy evaluation engine."
   spec.homepage = "https://github.com/elct9620/cedar-policy-rb"
   spec.license = "Apache-2.0"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.3.0"
   spec.required_rubygems_version = ">= 3.3.22"
 
   spec.metadata["homepage_uri"] = spec.homepage

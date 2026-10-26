@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "json"
-require "set"
 
 require_relative "cedar_policy/version"
 require_relative "cedar_policy/entity_uid"

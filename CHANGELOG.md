@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.8.0](https://github.com/elct9620/cedar-policy-rb/compare/v0.7.1...v0.8.0) (2026-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* required_ruby_version is now >= 3.3.0.
+
+### Features
+
+* require Ruby 3.3 or later ([60bc7ac](https://github.com/elct9620/cedar-policy-rb/commit/60bc7acaba5e2a3fb52f37a995d33eb49b9f8a8c))
+
+
+### Bug Fixes
+
+* **deps:** bump magnus from 0.8.2 to 0.8.4 ([161e434](https://github.com/elct9620/cedar-policy-rb/commit/161e434b9eba264fcf91df7c76a5e03e18a15c80))
+
 ## [0.7.1](https://github.com/elct9620/cedar-policy-rb/compare/v0.7.0...v0.7.1) (2026-09-09)
 
 
